@@ -30,6 +30,15 @@ def main(ip_address: str = "127.0.0.1", port: int = 50020):
     2. Setup "local" clock function
     3. Measure clock offset accounting for network latency variance
     4. Prepare and send annotations
+
+    Parameters:
+    ----------
+    ip_address (str) : ip address to which the eyetracker is connected. By defualt
+    it is set to 127.0.0.1. This assumes that the eyetracker is connected to this
+    machine.
+    
+    port (int) : port. By defualt it is set to 50020. Don't change it unless
+    you know what you are doing.
     """
 
     # 1. Setup network connection
@@ -93,10 +102,25 @@ def main(ip_address: str = "127.0.0.1", port: int = 50020):
     pupil_remote.recv_string()
 
 
-def check_capture_exists(ip_address, port):
-    """check pupil capture instance exists.
-       
-    Returns True if the Pupil Capture was found. Otherwise returns False."""
+def check_capture_exists(ip_address: str = '127.0.0.1' , port : int = 50020) -> bool:
+    """
+    Check whether pupil capture instance exists. Returns True if the Pupil
+    Capture was found. Otherwise returns False.
+    
+    Parameters:
+    ----------
+    ip_address (str) : ip address to which the eyetracker is connected. By defualt
+    it is set to 127.0.0.1. This assumes that the eyetracker is connected to this
+    machine.
+    
+    port (int) : port. By defualt it is set to 50020. Don't change it unless
+    you know what you are doing.
+    
+    Returns:
+    -------
+    (bool) : Returns True if the Pupil Capture was found. Otherwise, it returns
+    False.
+    """
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         if not sock.connect_ex((ip_address, port)):
             print("Found Pupil Capture")
@@ -105,14 +129,30 @@ def check_capture_exists(ip_address, port):
         return False
 
 
-def setup_pupil_remote_connection(ip_address, port):
-    """Creates a zmq-REQ socket and connects it to Pupil Capture or Service
+def setup_pupil_remote_connection(ip_address: str = '127.0.0.1', port: int = 50020) -> tuple:
+    """
+    Creates a zmq-REQ socket and connects it to Pupil Capture or Service
     to send and receive notifications.
 
     We also set up a PUB socket to send the annotations. This is necessary to write
     messages to the IPC Backbone other than notifications
 
     See https://docs.pupil-labs.com/developer/core/network-api/ for details.
+
+    Parameters:
+    ----------
+    ip_address (str) : ip address to which the eyetracker is connected. By defualt
+    it is set to 127.0.0.1. This assumes that the eyetracker is connected to this
+    machine.
+    
+    port (int) : port. By defualt it is set to 50020. Don't change it unless
+    you know what you are doing.
+
+    Returns:
+    -------
+    (tuple) : zmq-REQ and PUB sockets to connect with Pupil Capture and to send 
+    notifications.
+    
     """
     # zmq-REQ socket
     ctx = zmq.Context.instance()
@@ -128,18 +168,26 @@ def setup_pupil_remote_connection(ip_address, port):
     return pupil_remote, pub_socket
 
 
-def request_pupil_time(pupil_remote):
+def request_pupil_time(pupil_remote) -> float:
     """Uses an existing Pupil Core software connection to request the remote time.
     Returns the current "pupil time" at the timepoint of reception.
     See https://docs.pupil-labs.com/core/terminology/#pupil-time for more information
     about "pupil time".
+    
+    Parameters:
+    ----------
+    pupil_remote (zmq-REQ socket) : existing Pupil Core software connection.
+
+    Returns:
+    ------
+    (float) : the current 'pupil time' at the timepoint of reception.
     """
     pupil_remote.send_string("t")
     pupil_time = pupil_remote.recv()
     return float(pupil_time)
 
 
-def measure_clock_offset(pupil_remote, clock_function):
+def measure_clock_offset(pupil_remote, clock_function) -> float:
     """Calculates the offset between the Pupil Core software clock and a local clock.
     Requesting the remote pupil time takes time. This delay needs to be considered
     when calculating the clock offset. We measure the local time before (A) and
@@ -150,6 +198,16 @@ def measure_clock_offset(pupil_remote, clock_function):
     assumingly at the same point in time. The difference between them ("clock offset")
     allows us, given a new local clock measurement, to infer the corresponding time on
     the remote clock.
+
+    Parameters:
+    ----------
+    pupil_remote (zmq-REQ socket) : existing Pupil Core software connection.
+    clock_function (function) : a function that returns local time.
+    
+
+    Returns:
+    ------
+    (float) : a delay between local clock and pupil clock.
     """
     local_time_before = clock_function()
     pupil_time = request_pupil_time(pupil_remote)
@@ -160,8 +218,9 @@ def measure_clock_offset(pupil_remote, clock_function):
     return clock_offset
 
 
-def measure_clock_offset_stable(pupil_remote, clock_function, n_samples=10):
-    """Returns the mean clock offset after multiple measurements to reduce the effect
+def measure_clock_offset_stable(pupil_remote, clock_function, n_samples: int = 10) -> float:
+    """
+    Returns the mean clock offset after multiple measurements to reduce the effect
     of varying network delay.
 
     Since the network connection to Pupil Capture/Service is not necessarily stable,
@@ -174,6 +233,18 @@ def measure_clock_offset_stable(pupil_remote, clock_function, n_samples=10):
     running on the same computer). You can easily extend this function to perform
     further statistical analysis on your clock-offset measurements to examine the
     accuracy of the time sync.
+
+    Parameters:
+    ----------
+    pupil_remote (zmq-REQ socket) : existing Pupil Core software connection.
+    clock_function (function) : a function that returns local time.
+    n_sample (int) : a number of measurements. By default it is set to 10.
+    It must be at least 1.
+    
+
+    Returns:
+    ------
+    (float) : a mean delay between local clock and pupil clock.
     """
     assert n_samples > 0, "Requires at least one sample"
     offsets = [
@@ -182,8 +253,20 @@ def measure_clock_offset_stable(pupil_remote, clock_function, n_samples=10):
     return sum(offsets) / len(offsets)  # mean offset
 
 
-def notify(pupil_remote, notification):
-    """Sends ``notification`` to Pupil Remote"""
+def notify(pupil_remote, notification) -> str:
+    """
+    Sends ``notification`` to Pupil Remote. It returns a string with
+    the response from Pupil Remote.
+
+    Parameters:
+    ----------
+    pupil_remote (zmq_REQ socket) : existing Pupil Core software connection.
+    notification (dict) : the notification send to Pupil Remote.  
+
+    Returns:
+    -------
+    (str) : the response from Pupil Remote.
+    """
     topic = "notify." + notification["subject"]
     payload = serializer.dumps(notification, use_bin_type=True)
     pupil_remote.send_string(topic, flags=zmq.SNDMORE)
@@ -191,15 +274,33 @@ def notify(pupil_remote, notification):
     return pupil_remote.recv_string()
 
 
-def send_trigger(pub_socket, trigger):
-    """Sends annotation via PUB port"""
+def send_trigger(pub_socket, trigger) -> None:
+    """
+    Sends annotation via PUB port.
+
+    Parameters:
+    ----------
+    pub_socket (PUB socket) : a socket to send annotations.
+    trigger (dict) : an annotations to send.
+    """
     payload = serializer.dumps(trigger, use_bin_type=True)
     pub_socket.send_string(trigger["topic"], flags=zmq.SNDMORE)
     pub_socket.send(payload)
 
 
-def new_trigger(label, timestamp):
-    """Creates a new trigger/annotation to send to Pupil Capture"""
+def new_trigger(label, timestamp) -> dict:
+    """
+    Creates a new trigger/annotation to send to Pupil Capture.
+    It returns a dictionary with annotation to send.
+    
+    Parameters:
+    ----------
+    label (str) : annotation label.
+    timestamp (float) : timestamp of the annotation.
+
+    Returns:
+    (dict) : annotation to send to Pupil Capture.
+    """
     return {
         "topic": "annotation",
         "label": label,
