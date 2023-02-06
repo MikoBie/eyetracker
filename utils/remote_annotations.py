@@ -102,7 +102,7 @@ def main(ip_address: str = "127.0.0.1", port: int = 50020):
     pupil_remote.recv_string()
 
 
-def check_capture_exists(ip_address: str = '127.0.0.1' , port : int = 50020) -> bool:
+def check_capture_exists(ip_address: str = '127.0.0.1' , port : int = 50020):
     """
     Check whether pupil capture instance exists. Returns True if the Pupil
     Capture was found. Otherwise returns False.

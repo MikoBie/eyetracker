@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Feb  6 10:42:58 2023
+    on Mon Feb  6 19:23:08 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -29,15 +29,16 @@ import psychopy.iohub as io
 from psychopy.hardware import keyboard
 
 # Run 'Before Experiment' code from code
-import remote_annotations as ra
+from utils import remote_annotations as ra
 import time
 import random
+
 
 ip_address = '127.0.0.1'
 port = 50020
 # 1. Setup network connection
-capture_exisits = ra.check_capture_exists(ip_address, port)
-if capture_exisits:
+capture_exists = ra.check_capture_exists(ip_address, port)
+if capture_exists:
     pupil_remote, pub_socket = ra.setup_pupil_remote_connection(ip_address, port)
 
     # 2. Setup local clock function
@@ -54,10 +55,7 @@ if capture_exisits:
 
     ra.notify(pupil_remote,{"subject": "start_plugin", "name": "Annotation_Capture", "args": {}},)
 
-    # start a recording (necessary for this example script)
-    pupil_remote.send_string("R")
-    pupil_remote.recv_string()
-
+    
 
 
 # Ensure that relative paths start from the same directory as this script
@@ -155,7 +153,7 @@ space = visual.TextStim(win=win, name='space',
     depth=0.0);
 space_resp = keyboard.Keyboard()
 welcome_message = visual.TextBox2(
-     win, text='Cześć,\n \ndziękujemy, że zgodziłaś/eś się wziąć udział w badaniu. Jesteśmy zespołem naukowców i naukowczyń z Instytutu Studiów Społecznych im. prof. Roberta Zajonca na Uniwersytecie Warszawskim i prowadzimy badania nad decyzjami konsumenckimi.\nPrzechodząc dalej wyrażasz zgodę na udział w badaniu. Będzie ono trwało około 10 minut i składało się z dwóch części. Podczas trwania całego badania będziemy monitorować ruchy Twoich gałek ocznych. Sposób zbierania tych danych nie tworzy zagrożenia dla Twojego wzroku, ani innych ryzyk zdrowotnych. Gdybyś jednak poczuł/a się źle, poinformuj o tym badacza lub badaczkę. Pamiętaj, że w każdej chwili masz prawo zrezygnować z udziału z badania bez podania przyczyny.', font='Open Sans',
+     win, text='', font='Open Sans',
      pos=(-.8, .4),     letterHeight=0.04,
      size=(1.6, .5), borderWidth=2.0,
      color='white', colorSpace='rgb',
@@ -170,6 +168,13 @@ welcome_message = visual.TextBox2(
      name='welcome_message',
      autoLog=True,
 )
+# Run 'Begin Experiment' code from code_3
+with open('materials/instruction.txt') as file:
+    instruction_list = file.readlines()
+if expInfo['płeć'] == 'kobieta':
+    inst_text = instruction_list[0].replace(';','\n\n')
+else:
+    inst_text = instruction_list[1].replace(';','\n\n')
 
 # --- Initialize components for Routine "trust_manipulation" ---
 space2 = visual.TextStim(win=win, name='space2',
@@ -198,9 +203,19 @@ trust_instruction = visual.TextBox2(
 space2_resp = keyboard.Keyboard()
 # Run 'Begin Experiment' code from trust
 if int(expInfo['participant']) % 2 == 0:
-    trust = """Za chwilę na ekranie komputera pojawią się informacje o czterech produktach, które poprosilibyśmy Cię, żebyś ocenił/a. Zostały one wystawione na sprzedaż na popularnym serwisie aukcyjnym, który cieszy się dobrą renomą. Użytkownicy i użytkowniczki wysoko oceniają obsługę klienta serwisu, która w razie jakichkolwiek problemów z transakcją służy pomocą. Dodatkowo uczciwe i szczere opinie użytkowników i użytkowniczek na temat wad i zalet produktów ułatwiają klientom i klientkom podejmowanie decyzji."""
+    with open('materials/trust.txt') as file:
+        trust_list = file.readlines()
+    if expInfo['płeć'] == 'kobieta':
+        trust = trust_list[0]
+    else:
+        trust = trust_list[1]
 else:
-    trust = """Za chwilę na ekranie komputera pojawią się informacje o czterech produktach, które poprosilibyśmy Cię, żebyś ocenił/a. Zostały one wystawione na sprzedaż na popularnym serwisie aukcyjnym, który cieszy się szemraną opinią. Użytkownicy i użytkowniczki nisko oceniają obsługę klienta serwisu, która często nie odpowiada na prośby o interwencję. Dodatkowo często zdarza się, że opinie prezentowane przez użytkowników i użytkowniczki serwisu na temat produktów mają jedynie zachęcić do kupna a nie zawsze prawdziwie opisują wady i zalety projektu."""
+    with open('materials/untrust.txt') as file:
+        trust_list = file.readlines()
+    if expInfo['płeć'] == 'kobieta':
+        trust = trust_list[0]
+    else:
+        trust = trust_list[1]
 
 # --- Initialize components for Routine "products_display" ---
 stimulus = visual.ImageStim(
@@ -264,25 +279,221 @@ right_title = visual.TextStim(win=win, name='right_title',
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-5.0);
+# Run 'Begin Experiment' code from code
+if capture_exists:
+    # start a recording (necessary for this example script)
+    pupil_remote.send_string("R")
+    pupil_remote.recv_string()
+
 
 # --- Initialize components for Routine "ratings" ---
 key_resp_2 = keyboard.Keyboard()
 textbox = visual.TextBox2(
-     win, text='Na ile gwiazdek w skali od 1 do 5 oceniłabyś/oceniłbyś prezentowany przed chwilą produkt?\n\n\nWybierz na klawiturze numerycznej liczbę gwiazdek i naciśnij odpowiedni klawisz.', font='Open Sans',
-     pos=(0, 0),     letterHeight=0.05,
-     size=(1.5, 1), borderWidth=2.0,
+     win, text='Na ile gwiazdek w skali od 1 do 5 oceniłabyś/oceniłbyś prezentowany przed chwilą produkt? Najedź kursorem na rząd z wybraną liczbą gwiazdek i naciśnij lewy klawisz myszy.\n', font='Open Sans',
+     pos=(0, .4),     letterHeight=0.05,
+     size=(1.5, .2), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center',
+     padding=0.0, alignment='center-left',
+     anchor='top-center',
      fillColor=None, borderColor=None,
      flipHoriz=False, flipVert=False, languageStyle='LTR',
      editable=False,
      name='textbox',
      autoLog=True,
 )
+stars = visual.ImageStim(
+    win=win,
+    name='stars', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.5, 0.1), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-2.0)
+stars_2_1 = visual.ImageStim(
+    win=win,
+    name='stars_2_1', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.5, 0), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-3.0)
+stars_2_2 = visual.ImageStim(
+    win=win,
+    name='stars_2_2', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.4, 0), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-4.0)
+stars_3_1 = visual.ImageStim(
+    win=win,
+    name='stars_3_1', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.5, -.1), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-5.0)
+stars_3_2 = visual.ImageStim(
+    win=win,
+    name='stars_3_2', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.4, -.1), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-6.0)
+stars_3_3 = visual.ImageStim(
+    win=win,
+    name='stars_3_3', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.3, -.1), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-7.0)
+stars_4_1 = visual.ImageStim(
+    win=win,
+    name='stars_4_1', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.5, -.2), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-8.0)
+stars_4_2 = visual.ImageStim(
+    win=win,
+    name='stars_4_2', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.4, -.2), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-9.0)
+stars_4_3 = visual.ImageStim(
+    win=win,
+    name='stars_4_3', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.3, -.2), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-10.0)
+stars_4_4 = visual.ImageStim(
+    win=win,
+    name='stars_4_4', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.2, -.2), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-11.0)
+stars_5_1 = visual.ImageStim(
+    win=win,
+    name='stars_5_1', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.5, -.3), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-12.0)
+stars_5_2 = visual.ImageStim(
+    win=win,
+    name='stars_5_2', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.4, -.3), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-13.0)
+stars_5_3 = visual.ImageStim(
+    win=win,
+    name='stars_5_3', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.3, -.3), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-14.0)
+stars_5_4 = visual.ImageStim(
+    win=win,
+    name='stars_5_4', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.2, -.3), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-15.0)
+stars_5_5 = visual.ImageStim(
+    win=win,
+    name='stars_5_5', 
+    image='png/stars.png', mask=None, anchor='center',
+    ori=0.0, pos=(-.1, -.3), size=(0.1, 0.1),
+    color=[1,1,1], colorSpace='rgb', opacity=None,
+    flipHoriz=False, flipVert=False,
+    texRes=128.0, interpolate=True, depth=-16.0)
+star_1 = visual.ButtonStim(win, 
+    text=None, font='Arvo',
+    pos=(-.5, .1),
+    letterHeight=0.05,
+    size=(.1,.1), borderWidth=0.0,
+    fillColor=None, borderColor=None,
+    color=None, colorSpace='rgb',
+    opacity=None,
+    bold=True, italic=False,
+    padding=None,
+    anchor='center',
+    name='star_1'
+)
+star_1.buttonClock = core.Clock()
+star_2 = visual.ButtonStim(win, 
+    text=None, font='Arvo',
+    pos=(-.45, 0),
+    letterHeight=0.05,
+    size=(.2,.1), borderWidth=0.0,
+    fillColor=None, borderColor=None,
+    color=None, colorSpace='rgb',
+    opacity=None,
+    bold=True, italic=False,
+    padding=None,
+    anchor='center',
+    name='star_2'
+)
+star_2.buttonClock = core.Clock()
+star_3 = visual.ButtonStim(win, 
+    text=None, font='Arvo',
+    pos=(-.4, -.1),
+    letterHeight=0.05,
+    size=(.3,.1), borderWidth=0.0,
+    fillColor=None, borderColor=None,
+    color=None, colorSpace='rgb',
+    opacity=None,
+    bold=True, italic=False,
+    padding=None,
+    anchor='center',
+    name='star_3'
+)
+star_3.buttonClock = core.Clock()
+star_4 = visual.ButtonStim(win, 
+    text=None, font='Arvo',
+    pos=(-.35, -.2),
+    letterHeight=0.05,
+    size=(.4,.1), borderWidth=0.0,
+    fillColor=None, borderColor=None,
+    color=None, colorSpace='rgb',
+    opacity=None,
+    bold=True, italic=False,
+    padding=None,
+    anchor='center',
+    name='star_4'
+)
+star_4.buttonClock = core.Clock()
+star_5 = visual.ButtonStim(win, 
+    text='Click here', font='Arvo',
+    pos=(-.3, -.3),
+    letterHeight=0.05,
+    size=(.5,.1), borderWidth=0.0,
+    fillColor=None, borderColor=None,
+    color=None, colorSpace='rgb',
+    opacity=None,
+    bold=True, italic=False,
+    padding=None,
+    anchor='center',
+    name='star_5'
+)
+star_5.buttonClock = core.Clock()
 
 # --- Initialize components for Routine "end" ---
 text_instr = visual.TextStim(win=win, name='text_instr',
@@ -306,6 +517,9 @@ space_resp.keys = []
 space_resp.rt = []
 _space_resp_allKeys = []
 welcome_message.reset()
+welcome_message.setText(inst_text)
+# Run 'Begin Routine' code from code_3
+win.mouseVisible = False
 # keep track of which components have finished
 instructionComponents = [space, space_resp, welcome_message]
 for thisComponent in instructionComponents:
@@ -514,7 +728,7 @@ routineTimer.reset()
 # set up handler to look after randomisation of conditions etc
 trials = data.TrialHandler(nReps=1.0, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('conditions/conditions.xlsx'),
+    trialList=data.importConditions('materials/conditions.xlsx'),
     seed=None, name='trials')
 thisExp.addLoop(trials)  # add the loop to the experiment
 thisTrial = trials.trialList[0]  # so we can initialise stimuli with some values
@@ -545,7 +759,7 @@ for thisTrial in trials:
         opinions, facts = facts, opinions
         left, right = right, left
     
-    if capture_exisits:
+    if capture_exists:
         local_time = local_clock()
         label = product + '_' + left + '_start'
         minimal_trigger = ra.new_trigger(label, local_time + stable_offset_mean)
@@ -726,7 +940,7 @@ for thisTrial in trials:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     # Run 'End Routine' code from code
-    if capture_exisits:
+    if capture_exists:
         local_time = local_clock()
         label = product + '_' + left + '_end'
         minimal_trigger = ra.new_trigger(label, local_time + stable_offset_mean)
@@ -746,8 +960,10 @@ for thisTrial in trials:
     key_resp_2.rt = []
     _key_resp_2_allKeys = []
     textbox.reset()
+    # Run 'Begin Routine' code from code_2
+    win.mouseVisible = True
     # keep track of which components have finished
-    ratingsComponents = [key_resp_2, textbox]
+    ratingsComponents = [key_resp_2, textbox, stars, stars_2_1, stars_2_2, stars_3_1, stars_3_2, stars_3_3, stars_4_1, stars_4_2, stars_4_3, stars_4_4, stars_5_1, stars_5_2, stars_5_3, stars_5_4, stars_5_5, star_1, star_2, star_3, star_4, star_5]
     for thisComponent in ratingsComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
@@ -804,6 +1020,306 @@ for thisTrial in trials:
             thisExp.timestampOnFlip(win, 'textbox.started')
             textbox.setAutoDraw(True)
         
+        # *stars* updates
+        if stars.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars.frameNStart = frameN  # exact frame index
+            stars.tStart = t  # local t and not account for scr refresh
+            stars.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars.started')
+            stars.setAutoDraw(True)
+        
+        # *stars_2_1* updates
+        if stars_2_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_2_1.frameNStart = frameN  # exact frame index
+            stars_2_1.tStart = t  # local t and not account for scr refresh
+            stars_2_1.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_2_1, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_2_1.started')
+            stars_2_1.setAutoDraw(True)
+        
+        # *stars_2_2* updates
+        if stars_2_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_2_2.frameNStart = frameN  # exact frame index
+            stars_2_2.tStart = t  # local t and not account for scr refresh
+            stars_2_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_2_2, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_2_2.started')
+            stars_2_2.setAutoDraw(True)
+        
+        # *stars_3_1* updates
+        if stars_3_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_3_1.frameNStart = frameN  # exact frame index
+            stars_3_1.tStart = t  # local t and not account for scr refresh
+            stars_3_1.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_3_1, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_3_1.started')
+            stars_3_1.setAutoDraw(True)
+        
+        # *stars_3_2* updates
+        if stars_3_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_3_2.frameNStart = frameN  # exact frame index
+            stars_3_2.tStart = t  # local t and not account for scr refresh
+            stars_3_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_3_2, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_3_2.started')
+            stars_3_2.setAutoDraw(True)
+        
+        # *stars_3_3* updates
+        if stars_3_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_3_3.frameNStart = frameN  # exact frame index
+            stars_3_3.tStart = t  # local t and not account for scr refresh
+            stars_3_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_3_3, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_3_3.started')
+            stars_3_3.setAutoDraw(True)
+        
+        # *stars_4_1* updates
+        if stars_4_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_4_1.frameNStart = frameN  # exact frame index
+            stars_4_1.tStart = t  # local t and not account for scr refresh
+            stars_4_1.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_4_1, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_4_1.started')
+            stars_4_1.setAutoDraw(True)
+        
+        # *stars_4_2* updates
+        if stars_4_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_4_2.frameNStart = frameN  # exact frame index
+            stars_4_2.tStart = t  # local t and not account for scr refresh
+            stars_4_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_4_2, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_4_2.started')
+            stars_4_2.setAutoDraw(True)
+        
+        # *stars_4_3* updates
+        if stars_4_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_4_3.frameNStart = frameN  # exact frame index
+            stars_4_3.tStart = t  # local t and not account for scr refresh
+            stars_4_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_4_3, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_4_3.started')
+            stars_4_3.setAutoDraw(True)
+        
+        # *stars_4_4* updates
+        if stars_4_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_4_4.frameNStart = frameN  # exact frame index
+            stars_4_4.tStart = t  # local t and not account for scr refresh
+            stars_4_4.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_4_4, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_4_4.started')
+            stars_4_4.setAutoDraw(True)
+        
+        # *stars_5_1* updates
+        if stars_5_1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_5_1.frameNStart = frameN  # exact frame index
+            stars_5_1.tStart = t  # local t and not account for scr refresh
+            stars_5_1.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_5_1, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_5_1.started')
+            stars_5_1.setAutoDraw(True)
+        
+        # *stars_5_2* updates
+        if stars_5_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_5_2.frameNStart = frameN  # exact frame index
+            stars_5_2.tStart = t  # local t and not account for scr refresh
+            stars_5_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_5_2, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_5_2.started')
+            stars_5_2.setAutoDraw(True)
+        
+        # *stars_5_3* updates
+        if stars_5_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_5_3.frameNStart = frameN  # exact frame index
+            stars_5_3.tStart = t  # local t and not account for scr refresh
+            stars_5_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_5_3, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_5_3.started')
+            stars_5_3.setAutoDraw(True)
+        
+        # *stars_5_4* updates
+        if stars_5_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_5_4.frameNStart = frameN  # exact frame index
+            stars_5_4.tStart = t  # local t and not account for scr refresh
+            stars_5_4.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_5_4, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_5_4.started')
+            stars_5_4.setAutoDraw(True)
+        
+        # *stars_5_5* updates
+        if stars_5_5.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            stars_5_5.frameNStart = frameN  # exact frame index
+            stars_5_5.tStart = t  # local t and not account for scr refresh
+            stars_5_5.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(stars_5_5, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'stars_5_5.started')
+            stars_5_5.setAutoDraw(True)
+        
+        # *star_1* updates
+        if star_1.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            # keep track of start time/frame for later
+            star_1.frameNStart = frameN  # exact frame index
+            star_1.tStart = t  # local t and not account for scr refresh
+            star_1.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(star_1, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'star_1.started')
+            star_1.setAutoDraw(True)
+        if star_1.status == STARTED:
+            # check whether star_1 has been pressed
+            if star_1.isClicked:
+                if not star_1.wasClicked:
+                    star_1.timesOn.append(star_1.buttonClock.getTime()) # store time of first click
+                    star_1.timesOff.append(star_1.buttonClock.getTime()) # store time clicked until
+                else:
+                    star_1.timesOff[-1] = star_1.buttonClock.getTime() # update time clicked until
+                if not star_1.wasClicked:
+                    continueRoutine = False  # end routine when star_1 is clicked
+                    None
+                star_1.wasClicked = True  # if star_1 is still clicked next frame, it is not a new click
+            else:
+                star_1.wasClicked = False  # if star_1 is clicked next frame, it is a new click
+        else:
+            star_1.wasClicked = False  # if star_1 is clicked next frame, it is a new click
+        
+        # *star_2* updates
+        if star_2.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            # keep track of start time/frame for later
+            star_2.frameNStart = frameN  # exact frame index
+            star_2.tStart = t  # local t and not account for scr refresh
+            star_2.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(star_2, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'star_2.started')
+            star_2.setAutoDraw(True)
+        if star_2.status == STARTED:
+            # check whether star_2 has been pressed
+            if star_2.isClicked:
+                if not star_2.wasClicked:
+                    star_2.timesOn.append(star_2.buttonClock.getTime()) # store time of first click
+                    star_2.timesOff.append(star_2.buttonClock.getTime()) # store time clicked until
+                else:
+                    star_2.timesOff[-1] = star_2.buttonClock.getTime() # update time clicked until
+                if not star_2.wasClicked:
+                    continueRoutine = False  # end routine when star_2 is clicked
+                    None
+                star_2.wasClicked = True  # if star_2 is still clicked next frame, it is not a new click
+            else:
+                star_2.wasClicked = False  # if star_2 is clicked next frame, it is a new click
+        else:
+            star_2.wasClicked = False  # if star_2 is clicked next frame, it is a new click
+        
+        # *star_3* updates
+        if star_3.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            # keep track of start time/frame for later
+            star_3.frameNStart = frameN  # exact frame index
+            star_3.tStart = t  # local t and not account for scr refresh
+            star_3.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(star_3, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'star_3.started')
+            star_3.setAutoDraw(True)
+        if star_3.status == STARTED:
+            # check whether star_3 has been pressed
+            if star_3.isClicked:
+                if not star_3.wasClicked:
+                    star_3.timesOn.append(star_3.buttonClock.getTime()) # store time of first click
+                    star_3.timesOff.append(star_3.buttonClock.getTime()) # store time clicked until
+                else:
+                    star_3.timesOff[-1] = star_3.buttonClock.getTime() # update time clicked until
+                if not star_3.wasClicked:
+                    continueRoutine = False  # end routine when star_3 is clicked
+                    None
+                star_3.wasClicked = True  # if star_3 is still clicked next frame, it is not a new click
+            else:
+                star_3.wasClicked = False  # if star_3 is clicked next frame, it is a new click
+        else:
+            star_3.wasClicked = False  # if star_3 is clicked next frame, it is a new click
+        
+        # *star_4* updates
+        if star_4.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            # keep track of start time/frame for later
+            star_4.frameNStart = frameN  # exact frame index
+            star_4.tStart = t  # local t and not account for scr refresh
+            star_4.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(star_4, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'star_4.started')
+            star_4.setAutoDraw(True)
+        if star_4.status == STARTED:
+            # check whether star_4 has been pressed
+            if star_4.isClicked:
+                if not star_4.wasClicked:
+                    star_4.timesOn.append(star_4.buttonClock.getTime()) # store time of first click
+                    star_4.timesOff.append(star_4.buttonClock.getTime()) # store time clicked until
+                else:
+                    star_4.timesOff[-1] = star_4.buttonClock.getTime() # update time clicked until
+                if not star_4.wasClicked:
+                    continueRoutine = False  # end routine when star_4 is clicked
+                    None
+                star_4.wasClicked = True  # if star_4 is still clicked next frame, it is not a new click
+            else:
+                star_4.wasClicked = False  # if star_4 is clicked next frame, it is a new click
+        else:
+            star_4.wasClicked = False  # if star_4 is clicked next frame, it is a new click
+        
+        # *star_5* updates
+        if star_5.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            # keep track of start time/frame for later
+            star_5.frameNStart = frameN  # exact frame index
+            star_5.tStart = t  # local t and not account for scr refresh
+            star_5.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(star_5, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'star_5.started')
+            star_5.setAutoDraw(True)
+        if star_5.status == STARTED:
+            # check whether star_5 has been pressed
+            if star_5.isClicked:
+                if not star_5.wasClicked:
+                    star_5.timesOn.append(star_5.buttonClock.getTime()) # store time of first click
+                    star_5.timesOff.append(star_5.buttonClock.getTime()) # store time clicked until
+                else:
+                    star_5.timesOff[-1] = star_5.buttonClock.getTime() # update time clicked until
+                if not star_5.wasClicked:
+                    continueRoutine = False  # end routine when star_5 is clicked
+                    None
+                star_5.wasClicked = True  # if star_5 is still clicked next frame, it is not a new click
+            else:
+                star_5.wasClicked = False  # if star_5 is clicked next frame, it is a new click
+        else:
+            star_5.wasClicked = False  # if star_5 is clicked next frame, it is a new click
+        
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
@@ -832,6 +1348,43 @@ for thisTrial in trials:
     trials.addData('key_resp_2.keys',key_resp_2.keys)
     if key_resp_2.keys != None:  # we had a response
         trials.addData('key_resp_2.rt', key_resp_2.rt)
+    trials.addData('star_1.numClicks', star_1.numClicks)
+    if star_1.numClicks:
+       trials.addData('star_1.timesOn', star_1.timesOn)
+       trials.addData('star_1.timesOff', star_1.timesOff)
+    else:
+       trials.addData('star_1.timesOn', "")
+       trials.addData('star_1.timesOff', "")
+    trials.addData('star_2.numClicks', star_2.numClicks)
+    if star_2.numClicks:
+       trials.addData('star_2.timesOn', star_2.timesOn)
+       trials.addData('star_2.timesOff', star_2.timesOff)
+    else:
+       trials.addData('star_2.timesOn', "")
+       trials.addData('star_2.timesOff', "")
+    trials.addData('star_3.numClicks', star_3.numClicks)
+    if star_3.numClicks:
+       trials.addData('star_3.timesOn', star_3.timesOn)
+       trials.addData('star_3.timesOff', star_3.timesOff)
+    else:
+       trials.addData('star_3.timesOn', "")
+       trials.addData('star_3.timesOff', "")
+    trials.addData('star_4.numClicks', star_4.numClicks)
+    if star_4.numClicks:
+       trials.addData('star_4.timesOn', star_4.timesOn)
+       trials.addData('star_4.timesOff', star_4.timesOff)
+    else:
+       trials.addData('star_4.timesOn', "")
+       trials.addData('star_4.timesOff', "")
+    trials.addData('star_5.numClicks', star_5.numClicks)
+    if star_5.numClicks:
+       trials.addData('star_5.timesOn', star_5.timesOn)
+       trials.addData('star_5.timesOff', star_5.timesOff)
+    else:
+       trials.addData('star_5.timesOn', "")
+       trials.addData('star_5.timesOff', "")
+    # Run 'End Routine' code from code_2
+    win.mouseVisible = False
     # the Routine "ratings" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     thisExp.nextEntry()
@@ -936,7 +1489,7 @@ thisExp.nextEntry()
 # the Routine "end" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 # Run 'End Experiment' code from code
-if capture_exisits:
+if capture_exists:
     # stop recording
     pupil_remote.send_string("r")
     pupil_remote.recv_string()
@@ -948,7 +1501,7 @@ if capture_exisits:
 win.flip()
 
 # these shouldn't be strictly necessary (should auto-save)
-thisExp.saveAsWideText(filename+'.csv', delim='auto')
+thisExp.saveAsWideText(filename+'.csv', delim='semicolon')
 thisExp.saveAsPickle(filename)
 logging.flush()
 # make sure everything is closed down
