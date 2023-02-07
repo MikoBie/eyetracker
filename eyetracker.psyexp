@@ -192,7 +192,7 @@
       <CodeComponent name="code_3">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="with open('materials/instruction.txt') as file:&amp;#10;    instruction_list = file.readlines()&amp;#10;if expInfo['płeć'] == 'kobieta':&amp;#10;    inst_text = instruction_list[0].replace(';','\n\n')&amp;#10;else:&amp;#10;    inst_text = instruction_list[1].replace(';','\n\n')" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="with open('materials/instruction.txt', encoding=&quot;utf-8&quot;) as file:&amp;#10;    instruction_list = file.readlines()&amp;#10;if expInfo['płeć'] == 'kobieta':&amp;#10;    inst_text = instruction_list[0].replace(';','\n\n')&amp;#10;else:&amp;#10;    inst_text = instruction_list[1].replace(';','\n\n')" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="psychoJS.window.mouseVisible = false;&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="win.mouseVisible = False" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -945,7 +945,7 @@
       <CodeComponent name="trust">
         <Param val="" valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="if int(expInfo['participant']) % 2 == 0:&amp;#10;    with open('materials/trust.txt') as file:&amp;#10;        trust_list = file.readlines()&amp;#10;    if expInfo['płeć'] == 'kobieta':&amp;#10;        trust = trust_list[0]&amp;#10;    else:&amp;#10;        trust = trust_list[1]&amp;#10;else:&amp;#10;    with open('materials/untrust.txt') as file:&amp;#10;        trust_list = file.readlines()&amp;#10;    if expInfo['płeć'] == 'kobieta':&amp;#10;        trust = trust_list[0]&amp;#10;    else:&amp;#10;        trust = trust_list[1]" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="if int(expInfo['participant']) % 2 == 0:&amp;#10;    with open('materials/trust.txt', encoding=&quot;utf-8&quot;) as file:&amp;#10;        trust_list = file.readlines()&amp;#10;    if expInfo['płeć'] == 'kobieta':&amp;#10;        trust = trust_list[0]&amp;#10;    else:&amp;#10;        trust = trust_list[1]&amp;#10;else:&amp;#10;    with open('materials/untrust.txt', encoding=&quot;utf-8&quot;) as file:&amp;#10;        trust_list = file.readlines()&amp;#10;    if expInfo['płeć'] == 'kobieta':&amp;#10;        trust = trust_list[0]&amp;#10;    else:&amp;#10;        trust = trust_list[1]" valType="extendedCode" updates="constant" name="Begin Experiment"/>
         <Param val="/* Syntax Error: Fix Python code */" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="" valType="extendedCode" updates="constant" name="Begin Routine"/>
@@ -976,9 +976,9 @@
         <Param val="stimulus" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, 0.4)" valType="list" updates="constant" name="pos"/>
+        <Param val="(0, 0.9)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(0.25,0.25)" valType="list" updates="constant" name="size"/>
+        <Param val="(0.7,0.7)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0" valType="code" updates="None" name="startVal"/>
@@ -986,7 +986,7 @@
         <Param val="15" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="128" valType="num" updates="constant" name="texture resolution"/>
-        <Param val="height" valType="str" updates="None" name="units"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
       </ImageComponent>
       <TextComponent name="text">
         <Param val="white" valType="color" updates="constant" name="color"/>
@@ -997,11 +997,11 @@
         <Param val="None" valType="str" updates="constant" name="flip"/>
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.03" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
         <Param val="text" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, .1)" valType="list" updates="constant" name="pos"/>
+        <Param val="(0, 0.05)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1010,7 +1010,7 @@
         <Param val="15" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="$price" valType="str" updates="set every repeat" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
         <Param val="50" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
       <TextboxComponent name="left_text">
@@ -1032,15 +1032,15 @@
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
         <Param val="False" valType="bool" updates="constant" name="italic"/>
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.02" valType="num" updates="constant" name="letterHeight"/>
-        <Param val="1.0" valType="num" updates="constant" name="lineSpacing"/>
+        <Param val="0.04" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="0.8" valType="num" updates="constant" name="lineSpacing"/>
         <Param val="left_text" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="0" valType="num" updates="constant" name="padding"/>
-        <Param val="(-.6, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="(-.5, -0.15)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(.5, 1)" valType="list" updates="constant" name="size"/>
+        <Param val="(.8, 1)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0.0" valType="code" updates="None" name="startVal"/>
@@ -1048,7 +1048,7 @@
         <Param val="15" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="$facts" valType="str" updates="set every frame" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
       </TextboxComponent>
       <TextboxComponent name="right_text">
         <Param val="top-left" valType="str" updates="constant" name="alignment"/>
@@ -1069,15 +1069,15 @@
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
         <Param val="False" valType="bool" updates="constant" name="italic"/>
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.02" valType="num" updates="constant" name="letterHeight"/>
-        <Param val="1.0" valType="num" updates="constant" name="lineSpacing"/>
+        <Param val="0.04" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="0.8" valType="num" updates="constant" name="lineSpacing"/>
         <Param val="right_text" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="0" valType="num" updates="constant" name="padding"/>
-        <Param val="(.6, 0)" valType="list" updates="constant" name="pos"/>
+        <Param val="(.5, -0.15)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(.5, 1)" valType="list" updates="constant" name="size"/>
+        <Param val="(.8, 1)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0.0" valType="code" updates="None" name="startVal"/>
@@ -1085,7 +1085,7 @@
         <Param val="15" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="$opinions" valType="str" updates="set every frame" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
       </TextboxComponent>
       <TextComponent name="left_title">
         <Param val="white" valType="color" updates="constant" name="color"/>
@@ -1096,11 +1096,11 @@
         <Param val="None" valType="str" updates="constant" name="flip"/>
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.03" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
         <Param val="left_title" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(-.6, 0.05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(-.5, -0.05)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1109,7 +1109,7 @@
         <Param val="15" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="$left" valType="str" updates="set every frame" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
       <TextComponent name="right_title">
@@ -1121,11 +1121,11 @@
         <Param val="None" valType="str" updates="constant" name="flip"/>
         <Param val="Open Sans" valType="str" updates="constant" name="font"/>
         <Param val="LTR" valType="str" updates="None" name="languageStyle"/>
-        <Param val="0.03" valType="num" updates="constant" name="letterHeight"/>
+        <Param val="0.05" valType="num" updates="constant" name="letterHeight"/>
         <Param val="right_title" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(.6, 0.05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(.5, -0.05)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1134,7 +1134,7 @@
         <Param val="15" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
         <Param val="$right" valType="str" updates="set every frame" name="text"/>
-        <Param val="from exp settings" valType="str" updates="None" name="units"/>
+        <Param val="norm" valType="str" updates="None" name="units"/>
         <Param val="" valType="num" updates="constant" name="wrapWidth"/>
       </TextComponent>
       <CodeComponent name="code">
