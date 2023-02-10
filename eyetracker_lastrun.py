@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Feb  6 19:23:08 2023
+    on Fri Feb 10 17:38:41 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -31,28 +31,32 @@ from psychopy.hardware import keyboard
 # Run 'Before Experiment' code from code
 from utils import remote_annotations as ra
 import time
-import random
 
-
+## Default values
 ip_address = '127.0.0.1'
 port = 50020
+left = 'FAKTY'
+right = 'OPINIE'
 # 1. Setup network connection
 capture_exists = ra.check_capture_exists(ip_address, port)
+local_clock = time.perf_counter
+
+## Check whether Pupil Core is connected.
 if capture_exists:
     pupil_remote, pub_socket = ra.setup_pupil_remote_connection(ip_address, port)
 
-    # 2. Setup local clock function
+    ## 2. Setup local clock function
     local_clock = time.perf_counter
 
-    # 3. Measure clock offset accounting for network latency
+    ## 3. Measure clock offset accounting for network latency
     stable_offset_mean = ra.measure_clock_offset_stable(
         pupil_remote, clock_function=local_clock, n_samples=10
     )
-
     pupil_time_actual = ra.request_pupil_time(pupil_remote)
     local_time_actual = local_clock()
     pupil_time_calculated_locally = local_time_actual + stable_offset_mean
-
+    
+    ## 4. Start the annotation plugin
     ra.notify(pupil_remote,{"subject": "start_plugin", "name": "Annotation_Capture", "args": {}},)
 
     
@@ -84,10 +88,8 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
     originPath='/Users/mikolaj/Desktop/eyetracker/eyetracker_lastrun.py',
-    savePickle=True, saveWideText=True,
+    savePickle=True, saveWideText=False,
     dataFileName=filename)
-# save a log file for detail verbose info
-logFile = logging.LogFile(filename+'.log', level=logging.EXP)
 logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
 
 endExpNow = False  # flag for 'escape' or other condition => quit the exp
@@ -169,7 +171,10 @@ welcome_message = visual.TextBox2(
      autoLog=True,
 )
 # Run 'Begin Experiment' code from code_3
-with open('materials/instruction.txt') as file:
+## Depending on the sex of the participant it 
+## either loads the instruction for females or
+## males.
+with open('materials/instruction.txt', encoding="utf-8") as file:
     instruction_list = file.readlines()
 if expInfo['płeć'] == 'kobieta':
     inst_text = instruction_list[0].replace(';','\n\n')
@@ -202,15 +207,20 @@ trust_instruction = visual.TextBox2(
 )
 space2_resp = keyboard.Keyboard()
 # Run 'Begin Experiment' code from trust
+## Assigns the participant to the trust condition.
+## If the id is even the participant is assigned
+## to the trust condition. Oterwise to untrustworthy.
+## Additionally, it reads relevant instruction
+## either for females or males.
 if int(expInfo['participant']) % 2 == 0:
-    with open('materials/trust.txt') as file:
+    with open('materials/trust.txt', encoding="utf-8") as file:
         trust_list = file.readlines()
     if expInfo['płeć'] == 'kobieta':
         trust = trust_list[0]
     else:
         trust = trust_list[1]
 else:
-    with open('materials/untrust.txt') as file:
+    with open('materials/untrust.txt', encoding="utf-8") as file:
         trust_list = file.readlines()
     if expInfo['płeć'] == 'kobieta':
         trust = trust_list[0]
@@ -220,27 +230,27 @@ else:
 # --- Initialize components for Routine "products_display" ---
 stimulus = visual.ImageStim(
     win=win,
-    name='stimulus', units='height', 
+    name='stimulus', units='norm', 
     image='sin', mask=None, anchor='top-center',
-    ori=0.0, pos=(0, 0.4), size=(0.25,0.25),
+    ori=0.0, pos=(0, 0.9), size=(0.7,0.7),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=0.0)
 text = visual.TextStim(win=win, name='text',
     text='',
     font='Open Sans',
-    pos=(0, .1), height=0.03, wrapWidth=50.0, ori=0.0, 
+    units='norm', pos=(0, 0.05), height=0.05, wrapWidth=50.0, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-1.0);
 left_text = visual.TextBox2(
      win, text='', font='Open Sans',
-     pos=(-.6, 0),     letterHeight=0.02,
-     size=(.5, 1), borderWidth=2.0,
+     pos=(-.5, -0.15),units='norm',     letterHeight=0.04,
+     size=(.8, 1), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
-     lineSpacing=1.0,
+     lineSpacing=0.8,
      padding=0.0, alignment='top-left',
      anchor='top-center',
      fillColor=None, borderColor=None,
@@ -251,12 +261,12 @@ left_text = visual.TextBox2(
 )
 right_text = visual.TextBox2(
      win, text='', font='Open Sans',
-     pos=(.6, 0),     letterHeight=0.02,
-     size=(.5, 1), borderWidth=2.0,
+     pos=(.5, -0.15),units='norm',     letterHeight=0.04,
+     size=(.8, 1), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
-     lineSpacing=1.0,
+     lineSpacing=0.8,
      padding=0.0, alignment='top-left',
      anchor='top-center',
      fillColor=None, borderColor=None,
@@ -268,26 +278,26 @@ right_text = visual.TextBox2(
 left_title = visual.TextStim(win=win, name='left_title',
     text='',
     font='Open Sans',
-    pos=(-.6, 0.05), height=0.03, wrapWidth=None, ori=0.0, 
+    units='norm', pos=(-.5, -0.05), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-4.0);
 right_title = visual.TextStim(win=win, name='right_title',
     text='',
     font='Open Sans',
-    pos=(.6, 0.05), height=0.03, wrapWidth=None, ori=0.0, 
+    units='norm', pos=(.5, -0.05), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-5.0);
 # Run 'Begin Experiment' code from code
+## Check whether Puil Core is connected
 if capture_exists:
-    # start a recording (necessary for this example script)
+    ## start a recording (necessary for this example script)
     pupil_remote.send_string("R")
     pupil_remote.recv_string()
 
 
 # --- Initialize components for Routine "ratings" ---
-key_resp_2 = keyboard.Keyboard()
 textbox = visual.TextBox2(
      win, text='Na ile gwiazdek w skali od 1 do 5 oceniłabyś/oceniłbyś prezentowany przed chwilą produkt? Najedź kursorem na rząd z wybraną liczbą gwiazdek i naciśnij lewy klawisz myszy.\n', font='Open Sans',
      pos=(0, .4),     letterHeight=0.05,
@@ -311,7 +321,7 @@ stars = visual.ImageStim(
     ori=0.0, pos=(-.5, 0.1), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-2.0)
+    texRes=128.0, interpolate=True, depth=-1.0)
 stars_2_1 = visual.ImageStim(
     win=win,
     name='stars_2_1', 
@@ -319,7 +329,7 @@ stars_2_1 = visual.ImageStim(
     ori=0.0, pos=(-.5, 0), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-3.0)
+    texRes=128.0, interpolate=True, depth=-2.0)
 stars_2_2 = visual.ImageStim(
     win=win,
     name='stars_2_2', 
@@ -327,7 +337,7 @@ stars_2_2 = visual.ImageStim(
     ori=0.0, pos=(-.4, 0), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-4.0)
+    texRes=128.0, interpolate=True, depth=-3.0)
 stars_3_1 = visual.ImageStim(
     win=win,
     name='stars_3_1', 
@@ -335,7 +345,7 @@ stars_3_1 = visual.ImageStim(
     ori=0.0, pos=(-.5, -.1), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-5.0)
+    texRes=128.0, interpolate=True, depth=-4.0)
 stars_3_2 = visual.ImageStim(
     win=win,
     name='stars_3_2', 
@@ -343,7 +353,7 @@ stars_3_2 = visual.ImageStim(
     ori=0.0, pos=(-.4, -.1), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-6.0)
+    texRes=128.0, interpolate=True, depth=-5.0)
 stars_3_3 = visual.ImageStim(
     win=win,
     name='stars_3_3', 
@@ -351,7 +361,7 @@ stars_3_3 = visual.ImageStim(
     ori=0.0, pos=(-.3, -.1), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-7.0)
+    texRes=128.0, interpolate=True, depth=-6.0)
 stars_4_1 = visual.ImageStim(
     win=win,
     name='stars_4_1', 
@@ -359,7 +369,7 @@ stars_4_1 = visual.ImageStim(
     ori=0.0, pos=(-.5, -.2), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-8.0)
+    texRes=128.0, interpolate=True, depth=-7.0)
 stars_4_2 = visual.ImageStim(
     win=win,
     name='stars_4_2', 
@@ -367,7 +377,7 @@ stars_4_2 = visual.ImageStim(
     ori=0.0, pos=(-.4, -.2), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-9.0)
+    texRes=128.0, interpolate=True, depth=-8.0)
 stars_4_3 = visual.ImageStim(
     win=win,
     name='stars_4_3', 
@@ -375,7 +385,7 @@ stars_4_3 = visual.ImageStim(
     ori=0.0, pos=(-.3, -.2), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-10.0)
+    texRes=128.0, interpolate=True, depth=-9.0)
 stars_4_4 = visual.ImageStim(
     win=win,
     name='stars_4_4', 
@@ -383,7 +393,7 @@ stars_4_4 = visual.ImageStim(
     ori=0.0, pos=(-.2, -.2), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-11.0)
+    texRes=128.0, interpolate=True, depth=-10.0)
 stars_5_1 = visual.ImageStim(
     win=win,
     name='stars_5_1', 
@@ -391,7 +401,7 @@ stars_5_1 = visual.ImageStim(
     ori=0.0, pos=(-.5, -.3), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-12.0)
+    texRes=128.0, interpolate=True, depth=-11.0)
 stars_5_2 = visual.ImageStim(
     win=win,
     name='stars_5_2', 
@@ -399,7 +409,7 @@ stars_5_2 = visual.ImageStim(
     ori=0.0, pos=(-.4, -.3), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-13.0)
+    texRes=128.0, interpolate=True, depth=-12.0)
 stars_5_3 = visual.ImageStim(
     win=win,
     name='stars_5_3', 
@@ -407,7 +417,7 @@ stars_5_3 = visual.ImageStim(
     ori=0.0, pos=(-.3, -.3), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-14.0)
+    texRes=128.0, interpolate=True, depth=-13.0)
 stars_5_4 = visual.ImageStim(
     win=win,
     name='stars_5_4', 
@@ -415,7 +425,7 @@ stars_5_4 = visual.ImageStim(
     ori=0.0, pos=(-.2, -.3), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-15.0)
+    texRes=128.0, interpolate=True, depth=-14.0)
 stars_5_5 = visual.ImageStim(
     win=win,
     name='stars_5_5', 
@@ -423,7 +433,7 @@ stars_5_5 = visual.ImageStim(
     ori=0.0, pos=(-.1, -.3), size=(0.1, 0.1),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-16.0)
+    texRes=128.0, interpolate=True, depth=-15.0)
 star_1 = visual.ButtonStim(win, 
     text=None, font='Arvo',
     pos=(-.5, .1),
@@ -481,7 +491,7 @@ star_4 = visual.ButtonStim(win,
 )
 star_4.buttonClock = core.Clock()
 star_5 = visual.ButtonStim(win, 
-    text='Click here', font='Arvo',
+    text=None, font='Arvo',
     pos=(-.3, -.3),
     letterHeight=0.05,
     size=(.5,.1), borderWidth=0.0,
@@ -494,6 +504,12 @@ star_5 = visual.ButtonStim(win,
     name='star_5'
 )
 star_5.buttonClock = core.Clock()
+# Run 'Begin Experiment' code from code_2
+## Initilize number of clicks to 0
+star_1_num_clicks = star_2_num_clicks = star_3_num_clicks = star_4_num_clicks = star_5_num_clicks = 0
+
+## Initilize the order of condition variable
+condition_order = 1
 
 # --- Initialize components for Routine "end" ---
 text_instr = visual.TextStim(win=win, name='text_instr',
@@ -519,6 +535,7 @@ _space_resp_allKeys = []
 welcome_message.reset()
 welcome_message.setText(inst_text)
 # Run 'Begin Routine' code from code_3
+## Makes the cursor of the mause invisible.
 win.mouseVisible = False
 # keep track of which components have finished
 instructionComponents = [space, space_resp, welcome_message]
@@ -753,19 +770,26 @@ for thisTrial in trials:
     left_text.reset()
     right_text.reset()
     # Run 'Begin Routine' code from code
-    left = 'FAKTY'
-    right = 'OPINIE'
-    if random.randint(0,1):
+    ## Randomize whether facts will be displayed on the
+    ## left or right side of the screen.
+    if randint(0,1):
         opinions, facts = facts, opinions
         left, right = right, left
     
+    ## Check whether Pupil Core is connected
     if capture_exists:
+        ## Measure local time
         local_time = local_clock()
+        ## Create label
         label = product + '_' + left + '_start'
+        ## Crealte an annotation
         minimal_trigger = ra.new_trigger(label, local_time + stable_offset_mean)
+        ## Send the annotation to Pupil Core with the
+        ## start trigger
         ra.send_trigger(pub_socket, minimal_trigger)
     
-    
+    ## Write out what was displayed on the left side
+    trials.addData('left', left)
     # keep track of which components have finished
     products_displayComponents = [stimulus, text, left_text, right_text, left_title, right_title]
     for thisComponent in products_displayComponents:
@@ -940,6 +964,8 @@ for thisTrial in trials:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
     # Run 'End Routine' code from code
+    ## Check whether Pupil Core is connected
+    ## And send the annotation with the stop trigger.
     if capture_exists:
         local_time = local_clock()
         label = product + '_' + left + '_end'
@@ -956,14 +982,15 @@ for thisTrial in trials:
     continueRoutine = True
     routineForceEnded = False
     # update component parameters for each repeat
-    key_resp_2.keys = []
-    key_resp_2.rt = []
-    _key_resp_2_allKeys = []
     textbox.reset()
     # Run 'Begin Routine' code from code_2
+    ## Make the mouse cursor visible
     win.mouseVisible = True
+    
+    ## Timestamp of when the star appeared
+    stars_appeared = local_clock()
     # keep track of which components have finished
-    ratingsComponents = [key_resp_2, textbox, stars, stars_2_1, stars_2_2, stars_3_1, stars_3_2, stars_3_3, stars_4_1, stars_4_2, stars_4_3, stars_4_4, stars_5_1, stars_5_2, stars_5_3, stars_5_4, stars_5_5, star_1, star_2, star_3, star_4, star_5]
+    ratingsComponents = [textbox, stars, stars_2_1, stars_2_2, stars_3_1, stars_3_2, stars_3_3, stars_4_1, stars_4_2, stars_4_3, stars_4_4, stars_5_1, stars_5_2, stars_5_3, stars_5_4, stars_5_5, star_1, star_2, star_3, star_4, star_5]
     for thisComponent in ratingsComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
@@ -984,30 +1011,6 @@ for thisTrial in trials:
         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
-        
-        # *key_resp_2* updates
-        waitOnFlip = False
-        if key_resp_2.status == NOT_STARTED and tThisFlip >= .5-frameTolerance:
-            # keep track of start time/frame for later
-            key_resp_2.frameNStart = frameN  # exact frame index
-            key_resp_2.tStart = t  # local t and not account for scr refresh
-            key_resp_2.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(key_resp_2, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'key_resp_2.started')
-            key_resp_2.status = STARTED
-            # keyboard checking is just starting
-            waitOnFlip = True
-            win.callOnFlip(key_resp_2.clock.reset)  # t=0 on next screen flip
-            win.callOnFlip(key_resp_2.clearEvents, eventType='keyboard')  # clear events on next screen flip
-        if key_resp_2.status == STARTED and not waitOnFlip:
-            theseKeys = key_resp_2.getKeys(keyList=['1','2','3','4','5'], waitRelease=False)
-            _key_resp_2_allKeys.extend(theseKeys)
-            if len(_key_resp_2_allKeys):
-                key_resp_2.keys = _key_resp_2_allKeys[-1].name  # just the last key pressed
-                key_resp_2.rt = _key_resp_2_allKeys[-1].rt
-                # a response ends the routine
-                continueRoutine = False
         
         # *textbox* updates
         if textbox.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
@@ -1199,10 +1202,10 @@ for thisTrial in trials:
             # check whether star_1 has been pressed
             if star_1.isClicked:
                 if not star_1.wasClicked:
-                    star_1.timesOn.append(star_1.buttonClock.getTime()) # store time of first click
-                    star_1.timesOff.append(star_1.buttonClock.getTime()) # store time clicked until
+                    star_1.timesOn.append(routineTimer.getTime()) # store time of first click
+                    star_1.timesOff.append(routineTimer.getTime()) # store time clicked until
                 else:
-                    star_1.timesOff[-1] = star_1.buttonClock.getTime() # update time clicked until
+                    star_1.timesOff[-1] = routineTimer.getTime() # update time clicked until
                 if not star_1.wasClicked:
                     continueRoutine = False  # end routine when star_1 is clicked
                     None
@@ -1342,12 +1345,6 @@ for thisTrial in trials:
     for thisComponent in ratingsComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    # check responses
-    if key_resp_2.keys in ['', [], None]:  # No response was made
-        key_resp_2.keys = None
-    trials.addData('key_resp_2.keys',key_resp_2.keys)
-    if key_resp_2.keys != None:  # we had a response
-        trials.addData('key_resp_2.rt', key_resp_2.rt)
     trials.addData('star_1.numClicks', star_1.numClicks)
     if star_1.numClicks:
        trials.addData('star_1.timesOn', star_1.timesOn)
@@ -1384,13 +1381,73 @@ for thisTrial in trials:
        trials.addData('star_5.timesOn', "")
        trials.addData('star_5.timesOff', "")
     # Run 'End Routine' code from code_2
+    ## Make the mouse coursor invisible
     win.mouseVisible = False
+    
+    ## Reaction time to a star
+    stars_time = local_clock() - stars_appeared
+    
+    ## Assign the reaction time to a star
+    ## to the relevant star
+    if star_1.numClicks and star_1.numClicks > star_1_num_clicks:
+        star_1_rt = stars_time
+        star_1_num_clicks = star_1.numClicks
+    else:
+        star_1_rt = 0
+    
+    if star_2.numClicks and star_2.numClicks > star_2_num_clicks:
+        star_2_rt = stars_time
+        star_2_num_clicks = star_2.numClicks
+    else:
+        star_2_rt = 0
+    
+    if star_3.numClicks and star_3.numClicks > star_3_num_clicks:
+        star_3_rt = stars_time
+        star_3_num_clicks = star_3.numClicks
+    else:
+        star_3_rt = 0
+        
+    if star_4.numClicks and star_4.numClicks > star_4_num_clicks:
+        star_4_rt = stars_time
+        star_4_num_clicks = star_4.numClicks
+    else:
+        star_4_rt = 0
+        
+    if star_5.numClicks and star_5.numClicks > star_5_num_clicks:
+        star_5_rt = stars_time
+        star_5_num_clicks = star_5.numClicks
+    else:
+        star_5_rt = 0
+    
+    ## Write out the reactions times to XLSX file
+    trials.addData('star1', star_1_rt)
+    trials.addData('star2', star_2_rt)
+    trials.addData('star3', star_3_rt)
+    trials.addData('star4', star_4_rt)
+    trials.addData('star5', star_5_rt)
+    
+    ## Write out condition order the automatic
+    ## variable does not work properly because
+    ## of the times of Buttons being weird
+    trials.addData('condition_order', condition_order)
+    
+    ## Increament condition order
+    condition_order += 1
     # the Routine "ratings" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     thisExp.nextEntry()
     
 # completed 1.0 repeats of 'trials'
 
+# get names of stimulus parameters
+if trials.trialList in ([], [None], None):
+    params = []
+else:
+    params = trials.trialList[0].keys()
+# save data for this loop
+trials.saveAsExcel(filename + '.xlsx', sheetName='trials',
+    stimOut=params,
+    dataOut=['n','all_mean','all_std', 'all_raw'])
 
 # --- Prepare to start Routine "end" ---
 continueRoutine = True
@@ -1489,8 +1546,9 @@ thisExp.nextEntry()
 # the Routine "end" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 # Run 'End Experiment' code from code
+## Check whether Pupil Capture is connected
 if capture_exists:
-    # stop recording
+    ## stop recording
     pupil_remote.send_string("r")
     pupil_remote.recv_string()
 
@@ -1501,9 +1559,7 @@ if capture_exists:
 win.flip()
 
 # these shouldn't be strictly necessary (should auto-save)
-thisExp.saveAsWideText(filename+'.csv', delim='semicolon')
 thisExp.saveAsPickle(filename)
-logging.flush()
 # make sure everything is closed down
 if eyetracker:
     eyetracker.setConnectionState(False)
