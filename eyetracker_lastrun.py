@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Fri Feb 10 17:38:41 2023
+    on Thu Mar  2 19:17:03 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -232,7 +232,7 @@ stimulus = visual.ImageStim(
     win=win,
     name='stimulus', units='norm', 
     image='sin', mask=None, anchor='top-center',
-    ori=0.0, pos=(0, 0.9), size=(0.7,0.7),
+    ori=0.0, pos=(0, 0.9), size=(0.525,0.7),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=0.0)

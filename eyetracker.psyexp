@@ -960,7 +960,7 @@
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="(0, 0.9)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
-        <Param val="(0.7,0.7)" valType="list" updates="constant" name="size"/>
+        <Param val="(0.525,0.7)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
         <Param val="0" valType="code" updates="None" name="startVal"/>
