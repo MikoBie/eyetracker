@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Tue Mar  7 20:29:44 2023
+    on Thu Mar  9 15:43:38 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -88,7 +88,7 @@ filename = _thisDir + os.sep + u'data/%s_%s_%s' % (expInfo['participant'], expNa
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
     originPath='/Users/mikolaj/Desktop/eyetracker/eyetracker_lastrun.py',
-    savePickle=True, saveWideText=False,
+    savePickle=True, saveWideText=True,
     dataFileName=filename)
 logging.console.setLevel(logging.WARNING)  # this outputs to the screen, not a file
 
@@ -529,31 +529,31 @@ awareness_opinions = visual.TextBox2(
      autoLog=True,
 )
 laptop_opinions = visual.Slider(win=win, name='laptop_opinions',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, 0.5), units='norm',
+    startValue=None, size=(.7, .05), pos=(-0.4, 0.5), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_opinions = visual.Slider(win=win, name='smartwatch_opinions',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, 0.1), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-2, readOnly=False)
 smartband_opinions = visual.Slider(win=win, name='smartband_opinions',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, -0.3), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 tablet_opinions = visual.Slider(win=win, name='tablet_opinions',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, -0.7), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-4, readOnly=False)
 laptop = visual.ImageStim(
@@ -607,31 +607,31 @@ awareness_facts = visual.TextBox2(
      autoLog=True,
 )
 laptop_facts = visual.Slider(win=win, name='laptop_facts',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, 0.5), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.5), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_facts = visual.Slider(win=win, name='smartwatch_facts',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, 0.1), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-2, readOnly=False)
 smartband_facts = visual.Slider(win=win, name='smartband_facts',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, -0.3), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 tablet_facts = visual.Slider(win=win, name='tablet_facts',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, -0.7), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-4, readOnly=False)
 laptop2 = visual.ImageStim(
@@ -685,31 +685,31 @@ awareness_price = visual.TextBox2(
      autoLog=True,
 )
 laptop_price = visual.Slider(win=win, name='laptop_price',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, 0.5), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.5), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_price = visual.Slider(win=win, name='smartwatch_price',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, 0.1), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-2, readOnly=False)
 smartband_price = visual.Slider(win=win, name='smartband_price',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, -0.3), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 tablet_price = visual.Slider(win=win, name='tablet_price',
-    startValue=None, size=(0.8, 0.1), pos=(-0.4, -0.7), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
     labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-4, readOnly=False)
 laptop3 = visual.ImageStim(
@@ -749,128 +749,79 @@ tablet3 = visual.ImageStim(
 carbon_foot = visual.TextStim(win=win, name='carbon_foot',
     text="Czym jest 'ślad węglowy'?",
     font='Open Sans',
-    units='norm', pos=(0, 0.8), height=0.05, wrapWidth=None, ori=0.0, 
+    pos=(0, 0.4), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
-a = visual.ButtonStim(win, 
-    text=None, font='Arvo',
-    pos=(-0.9, 0.6),units='norm',
-    letterHeight=0.05,
-    size=(0.1, 0.1), borderWidth=0.0,
-    fillColor='darkgrey', borderColor=None,
-    color='white', colorSpace='rgb',
-    opacity=None,
-    bold=True, italic=False,
-    padding=None,
-    anchor='center-left',
-    name='a'
-)
-a.buttonClock = core.Clock()
-b = visual.ButtonStim(win, 
-    text=None, font='Arvo',
-    pos=(-0.9, 0.2),units='norm',
-    letterHeight=0.05,
-    size=(0.1, 0.1), borderWidth=0.0,
-    fillColor='darkgrey', borderColor=None,
-    color='white', colorSpace='rgb',
-    opacity=None,
-    bold=True, italic=False,
-    padding=None,
-    anchor='center-left',
-    name='b'
-)
-b.buttonClock = core.Clock()
-c = visual.ButtonStim(win, 
-    text=None, font='Arvo',
-    pos=(-0.9, -0.2),units='norm',
-    letterHeight=0.05,
-    size=(0.1, 0.1), borderWidth=0.0,
-    fillColor='darkgrey', borderColor=None,
-    color='white', colorSpace='rgb',
-    opacity=None,
-    bold=True, italic=False,
-    padding=None,
-    anchor='center-left',
-    name='c'
-)
-c.buttonClock = core.Clock()
-d = visual.ButtonStim(win, 
-    text=None, font='Arvo',
-    pos=(-0.9, -0.6),units='norm',
-    letterHeight=0.05,
-    size=(0.1, 0.1), borderWidth=0.0,
-    fillColor='darkgrey', borderColor=None,
-    color='white', colorSpace='rgb',
-    opacity=None,
-    bold=True, italic=False,
-    padding=None,
-    anchor='center-left',
-    name='d'
-)
-d.buttonClock = core.Clock()
-A = visual.TextBox2(
-     win, text='To ekwiwalent ilości węgla zużytej do wyprodukowania danej rzeczy.', font='Open Sans',
-     pos=(-0.75, 0.6),units='norm',     letterHeight=0.05,
-     size=(0.8, 0.1), borderWidth=2.0,
+carbon_footprint_scale = visual.Slider(win=win, name='carbon_footprint_scale',
+    startValue=None, size=(.025, .8), pos=(-.6, 0), units='norm',
+    labels=None, ticks=(1, 2, 3, 4), granularity=1.0,
+    style='radio', styleTweaks=('labels45',), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    font='Open Sans', labelHeight=0.03,
+    flip=True, ori=-1.0, depth=-1, readOnly=False)
+a = visual.TextBox2(
+     win, text='Jest to ekwiwalent ilości węgla zużytej do wyprodukowania danej rzeczy.', font='Open Sans',
+     pos=(-.5, .44),units='norm',     letterHeight=0.05,
+     size=(1, .25), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center-left',
+     padding=0.0, alignment='top-left',
+     anchor='top-left',
      fillColor=None, borderColor=None,
      flipHoriz=False, flipVert=False, languageStyle='LTR',
      editable=False,
-     name='A',
+     name='a',
      autoLog=True,
 )
-B = visual.TextBox2(
-     win, text='To ekwiwalent ilości gazów cieplarnianych, jaka zostałaby wyemitowana do atmosfery przy degradacji produktu.', font='Open Sans',
-     pos=(-0.75, 0.2),units='norm',     letterHeight=0.05,
-     size=(0.8, 0.1), borderWidth=2.0,
+b = visual.TextBox2(
+     win, text='Jest to ekwiwalent ilości gazów cieplarnianych, jaka zostałaby wyemitowana do atmosfery przy degradacji produktu.', font='Open Sans',
+     pos=(-.5, .2),units='norm',     letterHeight=0.05,
+     size=(1, .5), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center-left',
+     padding=0.0, alignment='top-left',
+     anchor='top-left',
      fillColor=None, borderColor=None,
      flipHoriz=False, flipVert=False, languageStyle='LTR',
      editable=False,
-     name='B',
+     name='b',
      autoLog=True,
 )
-C = visual.TextBox2(
-     win, text='To całkowita suma emisji gazów cieplarnianych wywołanych bezpośrednio lub pośrednio przez dany produkt.', font='Open Sans',
-     pos=(-0.75, -0.2),units='norm',     letterHeight=0.05,
-     size=(0.8, 0.1), borderWidth=2.0,
+c = visual.TextBox2(
+     win, text='Jest to całkowita suma emisji gazów cieplarnianych wywołanych bezpośrednio lub pośrednio przez dany produkt.', font='Open Sans',
+     pos=(-.5, -.06),units='norm',     letterHeight=0.05,
+     size=(1, .5), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center-left',
+     padding=0.0, alignment='top-left',
+     anchor='top-left',
      fillColor=None, borderColor=None,
      flipHoriz=False, flipVert=False, languageStyle='LTR',
      editable=False,
-     name='C',
+     name='c',
      autoLog=True,
 )
-D = visual.TextBox2(
-     win, text='To suma emisji dwutlenku węgla, jaka trafia do atmosfery w związku z użytkowaniem produktu.', font='Open Sans',
-     pos=(-0.75, -0.6),units='norm',     letterHeight=0.05,
-     size=(0.8, 0.1), borderWidth=2.0,
+d = visual.TextBox2(
+     win, text='Jest to suma emisji dwutlenku węgla, jaka trafia do atmosfery w związku z użytkowaniem produktu.', font='Open Sans',
+     pos=(-.5, -.32),units='norm',     letterHeight=0.05,
+     size=(1, .5), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center-left',
+     padding=0.0, alignment='top-left',
+     anchor='top-left',
      fillColor=None, borderColor=None,
      flipHoriz=False, flipVert=False, languageStyle='LTR',
      editable=False,
-     name='D',
+     name='d',
      autoLog=True,
 )
 
@@ -878,15 +829,15 @@ D = visual.TextBox2(
 environmentalism = visual.TextStim(win=win, name='environmentalism',
     text='Jak dużą wagę przywiązujesz do kwestii środowiskowych robiąc zakupy?',
     font='Open Sans',
-    units='norm', pos=(0, 0.8), height=0.05, wrapWidth=None, ori=0.0, 
+    pos=(0, 0.4), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
 slider_env = visual.Slider(win=win, name='slider_env',
-    startValue=None, size=(0.8, 0.1), pos=(0, 0.2), units='norm',
+    startValue=None, size=(0.7, 0.05), pos=(0, 0.2), units='norm',
     labels=["Bardzo małą", "Bardzo dużą"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
-    style='rating', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Red', lineColor='White', colorSpace='rgb',
+    style='radio', styleTweaks=(), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.05,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 
@@ -1824,7 +1775,7 @@ if trials.trialList in ([], [None], None):
 else:
     params = trials.trialList[0].keys()
 # save data for this loop
-trials.saveAsExcel(filename + '.xlsx', sheetName='trials',
+trials.saveAsText(filename + 'trials.csv', delim=',',
     stimOut=params,
     dataOut=['n','all_mean','all_std', 'all_raw'])
 
@@ -1964,10 +1915,6 @@ while continueRoutine:
         tablet.setAutoDraw(True)
     # Run 'Each Frame' code from code_4
     if laptop_opinions.rating and smartwatch_opinions.rating and smartband_opinions.rating and tablet_opinions.rating:
-        trials.addData('laptop_opinions', laptop_opinions.getRating())
-        trials.addData('smartwatch_opinions', smartwatch_opinions.getRating())
-        trials.addData('smartband_opinions', smartband_opinions.getRating())
-        trials.addData('tablet_opinions', tablet_opinions.getRating())
         continueRoutine=False
     
     # check for quit (typically the Esc key)
@@ -2135,10 +2082,6 @@ while continueRoutine:
         smartband2.setAutoDraw(True)
     # Run 'Each Frame' code from code_5
     if laptop_facts.rating and smartwatch_facts.rating and smartband_facts.rating and tablet_facts.rating:
-        trials.addData('laptop_facts', laptop_facts.rating)
-        trials.addData('smartwatch_facts', smartwatch_facts.rating)
-        trials.addData('smartband_facts', smartband_facts.rating)
-        trials.addData('tablet_facts', tablet_facts.rating)
         continueRoutine=False
     
     # check for quit (typically the Esc key)
@@ -2306,10 +2249,6 @@ while continueRoutine:
         tablet3.setAutoDraw(True)
     # Run 'Each Frame' code from code_6
     if laptop_price.rating and smartwatch_price.rating and smartband_price.rating and tablet_price.rating:
-        trials.addData('laptop_price', laptop_price.rating)
-        trials.addData('smartwatch_price', smartwatch_price.rating)
-        trials.addData('smartband_price', smartband_price.rating)
-        trials.addData('tablet_price', tablet_price.rating)
         continueRoutine=False
     
     # check for quit (typically the Esc key)
@@ -2349,12 +2288,13 @@ routineTimer.reset()
 continueRoutine = True
 routineForceEnded = False
 # update component parameters for each repeat
-A.reset()
-B.reset()
-C.reset()
-D.reset()
+carbon_footprint_scale.reset()
+a.reset()
+b.reset()
+c.reset()
+d.reset()
 # keep track of which components have finished
-carbon_footprintComponents = [carbon_foot, a, b, c, d, A, B, C, D]
+carbon_footprintComponents = [carbon_foot, carbon_footprint_scale, a, b, c, d]
 for thisComponent in carbon_footprintComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -2387,8 +2327,23 @@ while continueRoutine:
         thisExp.timestampOnFlip(win, 'carbon_foot.started')
         carbon_foot.setAutoDraw(True)
     
+    # *carbon_footprint_scale* updates
+    if carbon_footprint_scale.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        carbon_footprint_scale.frameNStart = frameN  # exact frame index
+        carbon_footprint_scale.tStart = t  # local t and not account for scr refresh
+        carbon_footprint_scale.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(carbon_footprint_scale, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'carbon_footprint_scale.started')
+        carbon_footprint_scale.setAutoDraw(True)
+    
+    # Check carbon_footprint_scale for response to end routine
+    if carbon_footprint_scale.getRating() is not None and carbon_footprint_scale.status == STARTED:
+        continueRoutine = False
+    
     # *a* updates
-    if a.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+    if a.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         a.frameNStart = frameN  # exact frame index
         a.tStart = t  # local t and not account for scr refresh
@@ -2397,25 +2352,9 @@ while continueRoutine:
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'a.started')
         a.setAutoDraw(True)
-    if a.status == STARTED:
-        # check whether a has been pressed
-        if a.isClicked:
-            if not a.wasClicked:
-                a.timesOn.append(a.buttonClock.getTime()) # store time of first click
-                a.timesOff.append(a.buttonClock.getTime()) # store time clicked until
-            else:
-                a.timesOff[-1] = a.buttonClock.getTime() # update time clicked until
-            if not a.wasClicked:
-                continueRoutine = False  # end routine when a is clicked
-                None
-            a.wasClicked = True  # if a is still clicked next frame, it is not a new click
-        else:
-            a.wasClicked = False  # if a is clicked next frame, it is a new click
-    else:
-        a.wasClicked = False  # if a is clicked next frame, it is a new click
     
     # *b* updates
-    if b.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+    if b.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         b.frameNStart = frameN  # exact frame index
         b.tStart = t  # local t and not account for scr refresh
@@ -2424,25 +2363,9 @@ while continueRoutine:
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'b.started')
         b.setAutoDraw(True)
-    if b.status == STARTED:
-        # check whether b has been pressed
-        if b.isClicked:
-            if not b.wasClicked:
-                b.timesOn.append(b.buttonClock.getTime()) # store time of first click
-                b.timesOff.append(b.buttonClock.getTime()) # store time clicked until
-            else:
-                b.timesOff[-1] = b.buttonClock.getTime() # update time clicked until
-            if not b.wasClicked:
-                continueRoutine = False  # end routine when b is clicked
-                None
-            b.wasClicked = True  # if b is still clicked next frame, it is not a new click
-        else:
-            b.wasClicked = False  # if b is clicked next frame, it is a new click
-    else:
-        b.wasClicked = False  # if b is clicked next frame, it is a new click
     
     # *c* updates
-    if c.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+    if c.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         c.frameNStart = frameN  # exact frame index
         c.tStart = t  # local t and not account for scr refresh
@@ -2451,25 +2374,9 @@ while continueRoutine:
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'c.started')
         c.setAutoDraw(True)
-    if c.status == STARTED:
-        # check whether c has been pressed
-        if c.isClicked:
-            if not c.wasClicked:
-                c.timesOn.append(c.buttonClock.getTime()) # store time of first click
-                c.timesOff.append(c.buttonClock.getTime()) # store time clicked until
-            else:
-                c.timesOff[-1] = c.buttonClock.getTime() # update time clicked until
-            if not c.wasClicked:
-                continueRoutine = False  # end routine when c is clicked
-                None
-            c.wasClicked = True  # if c is still clicked next frame, it is not a new click
-        else:
-            c.wasClicked = False  # if c is clicked next frame, it is a new click
-    else:
-        c.wasClicked = False  # if c is clicked next frame, it is a new click
     
     # *d* updates
-    if d.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+    if d.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
         # keep track of start time/frame for later
         d.frameNStart = frameN  # exact frame index
         d.tStart = t  # local t and not account for scr refresh
@@ -2478,66 +2385,6 @@ while continueRoutine:
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'd.started')
         d.setAutoDraw(True)
-    if d.status == STARTED:
-        # check whether d has been pressed
-        if d.isClicked:
-            if not d.wasClicked:
-                d.timesOn.append(d.buttonClock.getTime()) # store time of first click
-                d.timesOff.append(d.buttonClock.getTime()) # store time clicked until
-            else:
-                d.timesOff[-1] = d.buttonClock.getTime() # update time clicked until
-            if not d.wasClicked:
-                continueRoutine = False  # end routine when d is clicked
-                None
-            d.wasClicked = True  # if d is still clicked next frame, it is not a new click
-        else:
-            d.wasClicked = False  # if d is clicked next frame, it is a new click
-    else:
-        d.wasClicked = False  # if d is clicked next frame, it is a new click
-    
-    # *A* updates
-    if A.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        A.frameNStart = frameN  # exact frame index
-        A.tStart = t  # local t and not account for scr refresh
-        A.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(A, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'A.started')
-        A.setAutoDraw(True)
-    
-    # *B* updates
-    if B.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        B.frameNStart = frameN  # exact frame index
-        B.tStart = t  # local t and not account for scr refresh
-        B.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(B, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'B.started')
-        B.setAutoDraw(True)
-    
-    # *C* updates
-    if C.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        C.frameNStart = frameN  # exact frame index
-        C.tStart = t  # local t and not account for scr refresh
-        C.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(C, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'C.started')
-        C.setAutoDraw(True)
-    
-    # *D* updates
-    if D.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        D.frameNStart = frameN  # exact frame index
-        D.tStart = t  # local t and not account for scr refresh
-        D.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(D, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'D.started')
-        D.setAutoDraw(True)
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -2561,34 +2408,8 @@ while continueRoutine:
 for thisComponent in carbon_footprintComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
-thisExp.addData('a.numClicks', a.numClicks)
-if a.numClicks:
-   thisExp.addData('a.timesOn', a.timesOn)
-   thisExp.addData('a.timesOff', a.timesOff)
-else:
-   thisExp.addData('a.timesOn', "")
-   thisExp.addData('a.timesOff', "")
-thisExp.addData('b.numClicks', b.numClicks)
-if b.numClicks:
-   thisExp.addData('b.timesOn', b.timesOn)
-   thisExp.addData('b.timesOff', b.timesOff)
-else:
-   thisExp.addData('b.timesOn', "")
-   thisExp.addData('b.timesOff', "")
-thisExp.addData('c.numClicks', c.numClicks)
-if c.numClicks:
-   thisExp.addData('c.timesOn', c.timesOn)
-   thisExp.addData('c.timesOff', c.timesOff)
-else:
-   thisExp.addData('c.timesOn', "")
-   thisExp.addData('c.timesOff', "")
-thisExp.addData('d.numClicks', d.numClicks)
-if d.numClicks:
-   thisExp.addData('d.timesOn', d.timesOn)
-   thisExp.addData('d.timesOff', d.timesOff)
-else:
-   thisExp.addData('d.timesOn', "")
-   thisExp.addData('d.timesOff', "")
+thisExp.addData('carbon_footprint_scale.response', carbon_footprint_scale.getRating())
+thisExp.addData('carbon_footprint_scale.rt', carbon_footprint_scale.getRT())
 # the Routine "carbon_footprint" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
@@ -2783,6 +2604,7 @@ if capture_exists:
 win.flip()
 
 # these shouldn't be strictly necessary (should auto-save)
+thisExp.saveAsWideText(filename+'.csv', delim='semicolon')
 thisExp.saveAsPickle(filename)
 # make sure everything is closed down
 if eyetracker:
