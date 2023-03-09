@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Mar  9 15:43:38 2023
+    on Thu Mar  9 16:05:42 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -1769,15 +1769,6 @@ for thisTrial in trials:
     
 # completed 1.0 repeats of 'trials'
 
-# get names of stimulus parameters
-if trials.trialList in ([], [None], None):
-    params = []
-else:
-    params = trials.trialList[0].keys()
-# save data for this loop
-trials.saveAsText(filename + 'trials.csv', delim=',',
-    stimOut=params,
-    dataOut=['n','all_mean','all_std', 'all_raw'])
 
 # --- Prepare to start Routine "awareness_opinions_check" ---
 continueRoutine = True
