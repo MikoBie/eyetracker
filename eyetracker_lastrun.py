@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Mar  9 16:05:42 2023
+    on Fri Mar 10 15:04:56 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -513,9 +513,9 @@ condition_order = 1
 
 # --- Initialize components for Routine "awareness_opinions_check" ---
 awareness_opinions = visual.TextBox2(
-     win, text='W przypadku swojej oceny każdego produktu wskaż, jak bardzo istotne były dla Ciebie opinie na temat danego produktu?\n', font='Open Sans',
+     win, text='W przypadku swojej oceny każdego produktu wskaż, na ile istotne były dla Ciebie opinie na temat danego produktu?\n', font='Open Sans',
      pos=(0, .4),     letterHeight=0.05,
-     size=(1.5, .22), borderWidth=2.0,
+     size=(1.5, .2), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
@@ -530,28 +530,28 @@ awareness_opinions = visual.TextBox2(
 )
 laptop_opinions = visual.Slider(win=win, name='laptop_opinions',
     startValue=None, size=(.7, .05), pos=(-0.4, 0.5), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_opinions = visual.Slider(win=win, name='smartwatch_opinions',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-2, readOnly=False)
 smartband_opinions = visual.Slider(win=win, name='smartband_opinions',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 tablet_opinions = visual.Slider(win=win, name='tablet_opinions',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
@@ -591,7 +591,7 @@ tablet = visual.ImageStim(
 
 # --- Initialize components for Routine "awareness_facts_check" ---
 awareness_facts = visual.TextBox2(
-     win, text='W przypadku swojej oceny każdego produktu wskaż, jak bardzo istotne były dla Ciebie fakty na temat danego produktu?', font='Open Sans',
+     win, text='W przypadku swojej oceny każdego produktu wskaż, na ile istotne były dla Ciebie fakty na temat danego produktu?', font='Open Sans',
      pos=(0, .4),     letterHeight=0.05,
      size=(1.5, .2), borderWidth=2.0,
      color='white', colorSpace='rgb',
@@ -608,28 +608,28 @@ awareness_facts = visual.TextBox2(
 )
 laptop_facts = visual.Slider(win=win, name='laptop_facts',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.5), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_facts = visual.Slider(win=win, name='smartwatch_facts',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-2, readOnly=False)
 smartband_facts = visual.Slider(win=win, name='smartband_facts',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 tablet_facts = visual.Slider(win=win, name='tablet_facts',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
@@ -686,28 +686,28 @@ awareness_price = visual.TextBox2(
 )
 laptop_price = visual.Slider(win=win, name='laptop_price',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.5), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_price = visual.Slider(win=win, name='smartwatch_price',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-2, readOnly=False)
 smartband_price = visual.Slider(win=win, name='smartband_price',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 tablet_price = visual.Slider(win=win, name='tablet_price',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
-    labels=["Wcale", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,
