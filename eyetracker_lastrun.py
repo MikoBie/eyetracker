@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Fri Mar 10 15:04:56 2023
+    on Mon Mar 13 15:00:00 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -35,8 +35,6 @@ import time
 ## Default values
 ip_address = '127.0.0.1'
 port = 50020
-left = 'FAKTY'
-right = 'OPINIE'
 # 1. Setup network connection
 capture_exists = ra.check_capture_exists(ip_address, port)
 local_clock = time.perf_counter
@@ -296,6 +294,7 @@ if capture_exists:
     pupil_remote.send_string("R")
     pupil_remote.recv_string()
 
+space_test = keyboard.Keyboard()
 
 # --- Initialize components for Routine "ratings" ---
 textbox = visual.TextBox2(
@@ -1100,9 +1099,11 @@ for thisTrial in trials:
     left_text.reset()
     right_text.reset()
     # Run 'Begin Routine' code from code
+    left = 'FAKTY'
+    right = 'OPINIE'
     ## Randomize whether facts will be displayed on the
     ## left or right side of the screen.
-    if randint(0,1):
+    if randint(0,2):
         opinions, facts = facts, opinions
         left, right = right, left
     
@@ -1120,8 +1121,11 @@ for thisTrial in trials:
     
     ## Write out what was displayed on the left side
     trials.addData('left', left)
+    space_test.keys = []
+    space_test.rt = []
+    _space_test_allKeys = []
     # keep track of which components have finished
-    products_displayComponents = [stimulus, text, left_text, right_text, left_title, right_title]
+    products_displayComponents = [stimulus, text, left_text, right_text, left_title, right_title, space_test]
     for thisComponent in products_displayComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
@@ -1135,7 +1139,7 @@ for thisTrial in trials:
     frameN = -1
     
     # --- Run Routine "products_display" ---
-    while continueRoutine and routineTimer.getTime() < 15.0:
+    while continueRoutine:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
@@ -1271,6 +1275,30 @@ for thisTrial in trials:
         if right_title.status == STARTED:  # only update if drawing
             right_title.setText(right, log=False)
         
+        # *space_test* updates
+        waitOnFlip = False
+        if space_test.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
+            # keep track of start time/frame for later
+            space_test.frameNStart = frameN  # exact frame index
+            space_test.tStart = t  # local t and not account for scr refresh
+            space_test.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(space_test, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'space_test.started')
+            space_test.status = STARTED
+            # keyboard checking is just starting
+            waitOnFlip = True
+            win.callOnFlip(space_test.clock.reset)  # t=0 on next screen flip
+            win.callOnFlip(space_test.clearEvents, eventType='keyboard')  # clear events on next screen flip
+        if space_test.status == STARTED and not waitOnFlip:
+            theseKeys = space_test.getKeys(keyList=['space'], waitRelease=False)
+            _space_test_allKeys.extend(theseKeys)
+            if len(_space_test_allKeys):
+                space_test.keys = _space_test_allKeys[-1].name  # just the last key pressed
+                space_test.rt = _space_test_allKeys[-1].rt
+                # a response ends the routine
+                continueRoutine = False
+        
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
@@ -1302,11 +1330,14 @@ for thisTrial in trials:
         minimal_trigger = ra.new_trigger(label, local_time + stable_offset_mean)
         ra.send_trigger(pub_socket, minimal_trigger)
     
-    # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
-    if routineForceEnded:
-        routineTimer.reset()
-    else:
-        routineTimer.addTime(-15.000000)
+    # check responses
+    if space_test.keys in ['', [], None]:  # No response was made
+        space_test.keys = None
+    trials.addData('space_test.keys',space_test.keys)
+    if space_test.keys != None:  # we had a response
+        trials.addData('space_test.rt', space_test.rt)
+    # the Routine "products_display" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset()
     
     # --- Prepare to start Routine "ratings" ---
     continueRoutine = True
