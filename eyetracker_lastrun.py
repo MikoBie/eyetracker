@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Mar 13 15:00:00 2023
+    on Thu Mar 16 14:03:22 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -294,7 +294,6 @@ if capture_exists:
     pupil_remote.send_string("R")
     pupil_remote.recv_string()
 
-space_test = keyboard.Keyboard()
 
 # --- Initialize components for Routine "ratings" ---
 textbox = visual.TextBox2(
@@ -510,10 +509,81 @@ star_1_num_clicks = star_2_num_clicks = star_3_num_clicks = star_4_num_clicks = 
 ## Initilize the order of condition variable
 condition_order = 1
 
+# --- Initialize components for Routine "trust_check" ---
+trust_2 = visual.TextBox2(
+     win, text='', font='Open Sans',
+     pos=(0, .35),     letterHeight=0.04,
+     size=(1.5, .2), borderWidth=2.0,
+     color='white', colorSpace='rgb',
+     opacity=None,
+     bold=False, italic=False,
+     lineSpacing=1.0,
+     padding=0.0, alignment='top-left',
+     anchor='center',
+     fillColor=None, borderColor=None,
+     flipHoriz=False, flipVert=False, languageStyle='LTR',
+     editable=False,
+     name='trust_2',
+     autoLog=True,
+)
+trust_3 = visual.TextBox2(
+     win, text='', font='Open Sans',
+     pos=(0, .05),     letterHeight=0.04,
+     size=(1.5, .2), borderWidth=2.0,
+     color='white', colorSpace='rgb',
+     opacity=None,
+     bold=False, italic=False,
+     lineSpacing=1.0,
+     padding=0.0, alignment='top-left',
+     anchor='center',
+     fillColor=None, borderColor=None,
+     flipHoriz=False, flipVert=False, languageStyle='LTR',
+     editable=False,
+     name='trust_3',
+     autoLog=True,
+)
+trust_4 = visual.TextBox2(
+     win, text='', font='Open Sans',
+     pos=(0, -.25),     letterHeight=0.04,
+     size=(1.5, .2), borderWidth=2.0,
+     color='white', colorSpace='rgb',
+     opacity=None,
+     bold=False, italic=False,
+     lineSpacing=1.0,
+     padding=0.0, alignment='top-left',
+     anchor='center',
+     fillColor=None, borderColor=None,
+     flipHoriz=False, flipVert=False, languageStyle='LTR',
+     editable=False,
+     name='trust_4',
+     autoLog=True,
+)
+slider_trust2 = visual.Slider(win=win, name='slider_trust2',
+    startValue=None, size=(0.7, 0.04), pos=(0, .3), units=None,
+    labels=["Bardzo mało wiarygodny", "Bardzo wiarygodny"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
+    style='radio', styleTweaks=(), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    font='Open Sans', labelHeight=0.03,
+    flip=False, ori=0.0, depth=-3, readOnly=False)
+slider_trust3 = visual.Slider(win=win, name='slider_trust3',
+    startValue=None, size=(0.7, 0.04), pos=(0, 0), units=None,
+    labels=["Bardzo mało zaufany", "Bardzo zaufany"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
+    style='radio', styleTweaks=(), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    font='Open Sans', labelHeight=0.03,
+    flip=False, ori=0.0, depth=-4, readOnly=False)
+slider_trust4 = visual.Slider(win=win, name='slider_trust4',
+    startValue=None, size=(0.7, 0.04), pos=(0, -.3), units=None,
+    labels=["Bardzo niegodny polecenia", "Bardzo godny polecenia"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
+    style='radio', styleTweaks=(), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    font='Open Sans', labelHeight=0.03,
+    flip=False, ori=0.0, depth=-5, readOnly=False)
+
 # --- Initialize components for Routine "awareness_opinions_check" ---
 awareness_opinions = visual.TextBox2(
      win, text='W przypadku swojej oceny każdego produktu wskaż, na ile istotne były dla Ciebie opinie na temat danego produktu?\n', font='Open Sans',
-     pos=(0, .4),     letterHeight=0.05,
+     pos=(0, .37),     letterHeight=0.05,
      size=(1.5, .2), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
@@ -665,6 +735,41 @@ smartband2 = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-8.0)
+
+# --- Initialize components for Routine "expertise_check" ---
+expertise = visual.TextBox2(
+     win, text='', font='Open Sans',
+     pos=(0, .35),     letterHeight=0.05,
+     size=(1.5, .2), borderWidth=2.0,
+     color='white', colorSpace='rgb',
+     opacity=None,
+     bold=False, italic=False,
+     lineSpacing=1.0,
+     padding=0.0, alignment='top-left',
+     anchor='center',
+     fillColor=None, borderColor=None,
+     flipHoriz=False, flipVert=False, languageStyle='LTR',
+     editable=False,
+     name='expertise',
+     autoLog=True,
+)
+slider_exp = visual.Slider(win=win, name='slider_exp',
+    startValue=None, size=(0.7, 0.05), pos=(0, -0.1), units=None,
+    labels=["Wcale", "W pełni"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
+    style='radio', styleTweaks=(), opacity=None,
+    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    font='Open Sans', labelHeight=0.05,
+    flip=False, ori=0.0, depth=-1, readOnly=False)
+# Run 'Begin Experiment' code from code_8
+## Depending on the sex of the participant it 
+## either loads the question for females or
+## males.
+with open('materials/expertise.txt', encoding="utf-8") as file:
+    expertise_q = file.readlines()
+if expInfo['płeć'] == 'kobieta':
+    exp_text = expertise_q[0].replace(';','\n\n')
+else:
+    exp_text = expertise_q[1].replace(';','\n\n')
 
 # --- Initialize components for Routine "awareness_price_check" ---
 awareness_price = visual.TextBox2(
@@ -1121,11 +1226,8 @@ for thisTrial in trials:
     
     ## Write out what was displayed on the left side
     trials.addData('left', left)
-    space_test.keys = []
-    space_test.rt = []
-    _space_test_allKeys = []
     # keep track of which components have finished
-    products_displayComponents = [stimulus, text, left_text, right_text, left_title, right_title, space_test]
+    products_displayComponents = [stimulus, text, left_text, right_text, left_title, right_title]
     for thisComponent in products_displayComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
@@ -1139,7 +1241,7 @@ for thisTrial in trials:
     frameN = -1
     
     # --- Run Routine "products_display" ---
-    while continueRoutine:
+    while continueRoutine and routineTimer.getTime() < 15.0:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
@@ -1275,30 +1377,6 @@ for thisTrial in trials:
         if right_title.status == STARTED:  # only update if drawing
             right_title.setText(right, log=False)
         
-        # *space_test* updates
-        waitOnFlip = False
-        if space_test.status == NOT_STARTED and tThisFlip >= 0.5-frameTolerance:
-            # keep track of start time/frame for later
-            space_test.frameNStart = frameN  # exact frame index
-            space_test.tStart = t  # local t and not account for scr refresh
-            space_test.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(space_test, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'space_test.started')
-            space_test.status = STARTED
-            # keyboard checking is just starting
-            waitOnFlip = True
-            win.callOnFlip(space_test.clock.reset)  # t=0 on next screen flip
-            win.callOnFlip(space_test.clearEvents, eventType='keyboard')  # clear events on next screen flip
-        if space_test.status == STARTED and not waitOnFlip:
-            theseKeys = space_test.getKeys(keyList=['space'], waitRelease=False)
-            _space_test_allKeys.extend(theseKeys)
-            if len(_space_test_allKeys):
-                space_test.keys = _space_test_allKeys[-1].name  # just the last key pressed
-                space_test.rt = _space_test_allKeys[-1].rt
-                # a response ends the routine
-                continueRoutine = False
-        
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
             core.quit()
@@ -1330,14 +1408,11 @@ for thisTrial in trials:
         minimal_trigger = ra.new_trigger(label, local_time + stable_offset_mean)
         ra.send_trigger(pub_socket, minimal_trigger)
     
-    # check responses
-    if space_test.keys in ['', [], None]:  # No response was made
-        space_test.keys = None
-    trials.addData('space_test.keys',space_test.keys)
-    if space_test.keys != None:  # we had a response
-        trials.addData('space_test.rt', space_test.rt)
-    # the Routine "products_display" was not non-slip safe, so reset the non-slip timer
-    routineTimer.reset()
+    # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
+    if routineForceEnded:
+        routineTimer.reset()
+    else:
+        routineTimer.addTime(-15.000000)
     
     # --- Prepare to start Routine "ratings" ---
     continueRoutine = True
@@ -1801,6 +1876,158 @@ for thisTrial in trials:
 # completed 1.0 repeats of 'trials'
 
 
+# --- Prepare to start Routine "trust_check" ---
+continueRoutine = True
+routineForceEnded = False
+# update component parameters for each repeat
+trust_2.reset()
+trust_3.reset()
+trust_4.reset()
+slider_trust2.reset()
+slider_trust3.reset()
+slider_trust4.reset()
+# Run 'Begin Routine' code from code_7
+## Make the mouse cursor visible
+win.mouseVisible = True
+
+## Depending on the sex of the participant it 
+## either loads the question for females or
+## males.
+with open('materials/manipulation_check.txt', encoding="utf-8") as file:
+    expertise_q = file.readlines()
+if expInfo['płeć'] == 'kobieta':
+    trust_check = expertise_q[0].split(';')
+else:
+    trust_check = expertise_q[1].split(';')
+# keep track of which components have finished
+trust_checkComponents = [trust_2, trust_3, trust_4, slider_trust2, slider_trust3, slider_trust4]
+for thisComponent in trust_checkComponents:
+    thisComponent.tStart = None
+    thisComponent.tStop = None
+    thisComponent.tStartRefresh = None
+    thisComponent.tStopRefresh = None
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+# reset timers
+t = 0
+_timeToFirstFrame = win.getFutureFlipTime(clock="now")
+frameN = -1
+
+# --- Run Routine "trust_check" ---
+while continueRoutine:
+    # get current time
+    t = routineTimer.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # *trust_2* updates
+    if trust_2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        trust_2.frameNStart = frameN  # exact frame index
+        trust_2.tStart = t  # local t and not account for scr refresh
+        trust_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(trust_2, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'trust_2.started')
+        trust_2.setAutoDraw(True)
+    if trust_2.status == STARTED:  # only update if drawing
+        trust_2.setText(trust_check[0], log=False)
+    
+    # *trust_3* updates
+    if trust_3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        trust_3.frameNStart = frameN  # exact frame index
+        trust_3.tStart = t  # local t and not account for scr refresh
+        trust_3.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(trust_3, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'trust_3.started')
+        trust_3.setAutoDraw(True)
+    if trust_3.status == STARTED:  # only update if drawing
+        trust_3.setText(trust_check[1], log=False)
+    
+    # *trust_4* updates
+    if trust_4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        trust_4.frameNStart = frameN  # exact frame index
+        trust_4.tStart = t  # local t and not account for scr refresh
+        trust_4.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(trust_4, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'trust_4.started')
+        trust_4.setAutoDraw(True)
+    if trust_4.status == STARTED:  # only update if drawing
+        trust_4.setText(trust_check[2], log=False)
+    
+    # *slider_trust2* updates
+    if slider_trust2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        slider_trust2.frameNStart = frameN  # exact frame index
+        slider_trust2.tStart = t  # local t and not account for scr refresh
+        slider_trust2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(slider_trust2, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'slider_trust2.started')
+        slider_trust2.setAutoDraw(True)
+    
+    # *slider_trust3* updates
+    if slider_trust3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        slider_trust3.frameNStart = frameN  # exact frame index
+        slider_trust3.tStart = t  # local t and not account for scr refresh
+        slider_trust3.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(slider_trust3, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'slider_trust3.started')
+        slider_trust3.setAutoDraw(True)
+    
+    # *slider_trust4* updates
+    if slider_trust4.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        slider_trust4.frameNStart = frameN  # exact frame index
+        slider_trust4.tStart = t  # local t and not account for scr refresh
+        slider_trust4.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(slider_trust4, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'slider_trust4.started')
+        slider_trust4.setAutoDraw(True)
+    # Run 'Each Frame' code from code_7
+    if slider_trust2.rating and slider_trust3.rating and slider_trust4.rating:
+        continueRoutine=False
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        routineForceEnded = True
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in trust_checkComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# --- Ending Routine "trust_check" ---
+for thisComponent in trust_checkComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+thisExp.addData('slider_trust2.response', slider_trust2.getRating())
+thisExp.addData('slider_trust2.rt', slider_trust2.getRT())
+thisExp.addData('slider_trust3.response', slider_trust3.getRating())
+thisExp.addData('slider_trust3.rt', slider_trust3.getRT())
+thisExp.addData('slider_trust4.response', slider_trust4.getRating())
+thisExp.addData('slider_trust4.rt', slider_trust4.getRT())
+# the Routine "trust_check" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+
 # --- Prepare to start Routine "awareness_opinions_check" ---
 continueRoutine = True
 routineForceEnded = False
@@ -1810,10 +2037,6 @@ laptop_opinions.reset()
 smartwatch_opinions.reset()
 smartband_opinions.reset()
 tablet_opinions.reset()
-# Run 'Begin Routine' code from code_4
-## Make the mouse cursor visible
-win.mouseVisible = True
-
 # keep track of which components have finished
 awareness_opinions_checkComponents = [awareness_opinions, laptop_opinions, smartwatch_opinions, smartband_opinions, tablet_opinions, laptop, smartwatch, smartband, tablet]
 for thisComponent in awareness_opinions_checkComponents:
@@ -2137,6 +2360,89 @@ thisExp.addData('smartband_facts.rt', smartband_facts.getRT())
 thisExp.addData('tablet_facts.response', tablet_facts.getRating())
 thisExp.addData('tablet_facts.rt', tablet_facts.getRT())
 # the Routine "awareness_facts_check" was not non-slip safe, so reset the non-slip timer
+routineTimer.reset()
+
+# --- Prepare to start Routine "expertise_check" ---
+continueRoutine = True
+routineForceEnded = False
+# update component parameters for each repeat
+expertise.reset()
+expertise.setText(exp_text)
+slider_exp.reset()
+# keep track of which components have finished
+expertise_checkComponents = [expertise, slider_exp]
+for thisComponent in expertise_checkComponents:
+    thisComponent.tStart = None
+    thisComponent.tStop = None
+    thisComponent.tStartRefresh = None
+    thisComponent.tStopRefresh = None
+    if hasattr(thisComponent, 'status'):
+        thisComponent.status = NOT_STARTED
+# reset timers
+t = 0
+_timeToFirstFrame = win.getFutureFlipTime(clock="now")
+frameN = -1
+
+# --- Run Routine "expertise_check" ---
+while continueRoutine:
+    # get current time
+    t = routineTimer.getTime()
+    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+    # update/draw components on each frame
+    
+    # *expertise* updates
+    if expertise.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        expertise.frameNStart = frameN  # exact frame index
+        expertise.tStart = t  # local t and not account for scr refresh
+        expertise.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(expertise, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'expertise.started')
+        expertise.setAutoDraw(True)
+    
+    # *slider_exp* updates
+    if slider_exp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # keep track of start time/frame for later
+        slider_exp.frameNStart = frameN  # exact frame index
+        slider_exp.tStart = t  # local t and not account for scr refresh
+        slider_exp.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(slider_exp, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.timestampOnFlip(win, 'slider_exp.started')
+        slider_exp.setAutoDraw(True)
+    
+    # Check slider_exp for response to end routine
+    if slider_exp.getRating() is not None and slider_exp.status == STARTED:
+        continueRoutine = False
+    
+    # check for quit (typically the Esc key)
+    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+        core.quit()
+    
+    # check if all components have finished
+    if not continueRoutine:  # a component has requested a forced-end of Routine
+        routineForceEnded = True
+        break
+    continueRoutine = False  # will revert to True if at least one component still running
+    for thisComponent in expertise_checkComponents:
+        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+            continueRoutine = True
+            break  # at least one component has not yet finished
+    
+    # refresh the screen
+    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+        win.flip()
+
+# --- Ending Routine "expertise_check" ---
+for thisComponent in expertise_checkComponents:
+    if hasattr(thisComponent, "setAutoDraw"):
+        thisComponent.setAutoDraw(False)
+thisExp.addData('slider_exp.response', slider_exp.getRating())
+thisExp.addData('slider_exp.rt', slider_exp.getRT())
+# the Routine "expertise_check" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- Prepare to start Routine "awareness_price_check" ---
