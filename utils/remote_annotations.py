@@ -23,7 +23,7 @@ import socket
 import sys
 
 
-def main(ip_address: str = "127.0.0.1", port: int = 50020):
+def main(id: str, ip_address: str = "127.0.0.1", port: int = 50020):
     """
     This example performs these steps:
     1. Setup network connection
@@ -33,6 +33,7 @@ def main(ip_address: str = "127.0.0.1", port: int = 50020):
 
     Parameters:
     ----------
+    id (str) : name of the recofding.
     ip_address (str) : ip address to which the eyetracker is connected. By defualt
     it is set to 127.0.0.1. This assumes that the eyetracker is connected to this
     machine.
@@ -69,7 +70,7 @@ def main(ip_address: str = "127.0.0.1", port: int = 50020):
     )
 
     # start a recording (necessary for this example script)
-    pupil_remote.send_string("R")
+    pupil_remote.send_string(f"R {id}")
     pupil_remote.recv_string()
     time.sleep(1.0)  # sleep for a few seconds, can be less
 

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Mar 16 14:03:22 2023
+    on Thu Aug  3 14:18:09 2023
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -237,13 +237,13 @@ stimulus = visual.ImageStim(
 text = visual.TextStim(win=win, name='text',
     text='',
     font='Open Sans',
-    units='norm', pos=(0, 0.05), height=0.05, wrapWidth=50.0, ori=0.0, 
+    units='norm', pos=(0, -.05), height=0.05, wrapWidth=50.0, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-1.0);
 left_text = visual.TextBox2(
      win, text='', font='Open Sans',
-     pos=(-.5, -0.15),units='norm',     letterHeight=0.04,
+     pos=(-.5, -0.45),units='norm',     letterHeight=0.04,
      size=(.8, 1), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
@@ -259,7 +259,7 @@ left_text = visual.TextBox2(
 )
 right_text = visual.TextBox2(
      win, text='', font='Open Sans',
-     pos=(.5, -0.15),units='norm',     letterHeight=0.04,
+     pos=(.5, -0.45),units='norm',     letterHeight=0.04,
      size=(.8, 1), borderWidth=2.0,
      color='white', colorSpace='rgb',
      opacity=None,
@@ -276,14 +276,14 @@ right_text = visual.TextBox2(
 left_title = visual.TextStim(win=win, name='left_title',
     text='',
     font='Open Sans',
-    units='norm', pos=(-.5, -0.05), height=0.05, wrapWidth=None, ori=0.0, 
+    units='norm', pos=(-.5, -0.35), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-4.0);
 right_title = visual.TextStim(win=win, name='right_title',
     text='',
     font='Open Sans',
-    units='norm', pos=(.5, -0.05), height=0.05, wrapWidth=None, ori=0.0, 
+    units='norm', pos=(.5, -0.35), height=0.05, wrapWidth=None, ori=0.0, 
     color='white', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=-5.0);
@@ -291,7 +291,9 @@ right_title = visual.TextStim(win=win, name='right_title',
 ## Check whether Puil Core is connected
 if capture_exists:
     ## start a recording (necessary for this example script)
-    pupil_remote.send_string("R")
+    date = time.strftime('%y_%m_%d_%H_%M_%S')
+    name_recording = f"R {expInfo['participant']}_{date}"
+    pupil_remote.send_string(f"{name_recording}")
     pupil_remote.recv_string()
 
 
@@ -797,7 +799,7 @@ laptop_price = visual.Slider(win=win, name='laptop_price',
     flip=False, ori=0.0, depth=-1, readOnly=False)
 smartwatch_price = visual.Slider(win=win, name='smartwatch_price',
     startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
     labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
     font='Open Sans', labelHeight=0.04,

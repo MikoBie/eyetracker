@@ -983,7 +983,7 @@
         <Param val="text" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(0, 0.05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(0, -.05)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1020,7 +1020,7 @@
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="0" valType="num" updates="constant" name="padding"/>
-        <Param val="(-.5, -0.15)" valType="list" updates="constant" name="pos"/>
+        <Param val="(-.5, -0.45)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="(.8, 1)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
@@ -1057,7 +1057,7 @@
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
         <Param val="0" valType="num" updates="constant" name="padding"/>
-        <Param val="(.5, -0.15)" valType="list" updates="constant" name="pos"/>
+        <Param val="(.5, -0.45)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="(.8, 1)" valType="list" updates="constant" name="size"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
@@ -1082,7 +1082,7 @@
         <Param val="left_title" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(-.5, -0.05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(-.5, -0.35)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1107,7 +1107,7 @@
         <Param val="right_title" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
         <Param val="0" valType="num" updates="constant" name="ori"/>
-        <Param val="(.5, -0.05)" valType="list" updates="constant" name="pos"/>
+        <Param val="(.5, -0.35)" valType="list" updates="constant" name="pos"/>
         <Param val="True" valType="bool" updates="None" name="saveStartStop"/>
         <Param val="" valType="code" updates="None" name="startEstim"/>
         <Param val="time (s)" valType="str" updates="None" name="startType"/>
@@ -1122,8 +1122,8 @@
       <CodeComponent name="code">
         <Param val="from utils import remote_annotations as ra&amp;#10;import time&amp;#10;&amp;#10;## Default values&amp;#10;ip_address = '127.0.0.1'&amp;#10;port = 50020&amp;#10;# 1. Setup network connection&amp;#10;capture_exists = ra.check_capture_exists(ip_address, port)&amp;#10;local_clock = time.perf_counter&amp;#10;&amp;#10;## Check whether Pupil Core is connected.&amp;#10;if capture_exists:&amp;#10;    pupil_remote, pub_socket = ra.setup_pupil_remote_connection(ip_address, port)&amp;#10;&amp;#10;    ## 2. Setup local clock function&amp;#10;    local_clock = time.perf_counter&amp;#10;&amp;#10;    ## 3. Measure clock offset accounting for network latency&amp;#10;    stable_offset_mean = ra.measure_clock_offset_stable(&amp;#10;        pupil_remote, clock_function=local_clock, n_samples=10&amp;#10;    )&amp;#10;    pupil_time_actual = ra.request_pupil_time(pupil_remote)&amp;#10;    local_time_actual = local_clock()&amp;#10;    pupil_time_calculated_locally = local_time_actual + stable_offset_mean&amp;#10;    &amp;#10;    ## 4. Start the annotation plugin&amp;#10;    ra.notify(pupil_remote,{&quot;subject&quot;: &quot;start_plugin&quot;, &quot;name&quot;: &quot;Annotation_Capture&quot;, &quot;args&quot;: {}},)&amp;#10;&amp;#10;    " valType="extendedCode" updates="constant" name="Before Experiment"/>
         <Param val="import {remote_annotations as ra} from 'utils';&amp;#10;import * as time from 'time';&amp;#10;var capture_exists, ip_address, local_clock, local_time_actual, port, pub_socket, pupil_remote, pupil_time_actual, pupil_time_calculated_locally, stable_offset_mean;&amp;#10;ip_address = &quot;127.0.0.1&quot;;&amp;#10;port = 50020;&amp;#10;capture_exists = ra.check_capture_exists(ip_address, port);&amp;#10;local_clock = time.perf_counter;&amp;#10;if (capture_exists) {&amp;#10;    [pupil_remote, pub_socket] = ra.setup_pupil_remote_connection(ip_address, port);&amp;#10;    local_clock = time.perf_counter;&amp;#10;    stable_offset_mean = ra.measure_clock_offset_stable(pupil_remote, {&quot;clock_function&quot;: local_clock, &quot;n_samples&quot;: 10});&amp;#10;    pupil_time_actual = ra.request_pupil_time(pupil_remote);&amp;#10;    local_time_actual = local_clock();&amp;#10;    pupil_time_calculated_locally = (local_time_actual + stable_offset_mean);&amp;#10;    ra.notify(pupil_remote, {&quot;subject&quot;: &quot;start_plugin&quot;, &quot;name&quot;: &quot;Annotation_Capture&quot;, &quot;args&quot;: {}});&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Before JS Experiment"/>
-        <Param val="## Check whether Puil Core is connected&amp;#10;if capture_exists:&amp;#10;    ## start a recording (necessary for this example script)&amp;#10;    pupil_remote.send_string(&quot;R&quot;)&amp;#10;    pupil_remote.recv_string()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
-        <Param val="if (capture_exists) {&amp;#10;    pupil_remote.send_string(&quot;R&quot;);&amp;#10;    pupil_remote.recv_string();&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
+        <Param val="## Check whether Puil Core is connected&amp;#10;if capture_exists:&amp;#10;    ## start a recording (necessary for this example script)&amp;#10;    date = time.strftime('%y_%m_%d_%H_%M_%S')&amp;#10;    name_recording = f&quot;R {expInfo['participant']}_{date}&quot;&amp;#10;    pupil_remote.send_string(f&quot;{name_recording}&quot;)&amp;#10;    pupil_remote.recv_string()&amp;#10;" valType="extendedCode" updates="constant" name="Begin Experiment"/>
+        <Param val="if (capture_exists) {&amp;#10;    date = time.strftime(&quot;%y_%m_%d_%H_%M_%S&quot;);&amp;#10;    name_recording = `R ${expInfo[&quot;participant&quot;]}_${date}`;&amp;#10;    pupil_remote.send_string(`${name_recording}`);&amp;#10;    pupil_remote.recv_string();&amp;#10;}&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Experiment"/>
         <Param val="left = &quot;FAKTY&quot;;&amp;#10;right = &quot;OPINIE&quot;;&amp;#10;if (util.randint(0, 2)) {&amp;#10;    [opinions, facts] = [facts, opinions];&amp;#10;    [left, right] = [right, left];&amp;#10;}&amp;#10;if (capture_exists) {&amp;#10;    local_time = local_clock();&amp;#10;    label = (((product + &quot;_&quot;) + left) + &quot;_start&quot;);&amp;#10;    minimal_trigger = ra.new_trigger(label, (local_time + stable_offset_mean));&amp;#10;    ra.send_trigger(pub_socket, minimal_trigger);&amp;#10;}&amp;#10;trials.addData(&quot;left&quot;, left);&amp;#10;" valType="extendedCode" updates="constant" name="Begin JS Routine"/>
         <Param val="left = 'FAKTY'&amp;#10;right = 'OPINIE'&amp;#10;## Randomize whether facts will be displayed on the&amp;#10;## left or right side of the screen.&amp;#10;if randint(0,2):&amp;#10;    opinions, facts = facts, opinions&amp;#10;    left, right = right, left&amp;#10;&amp;#10;## Check whether Pupil Core is connected&amp;#10;if capture_exists:&amp;#10;    ## Measure local time&amp;#10;    local_time = local_clock()&amp;#10;    ## Create label&amp;#10;    label = product + '_' + left + '_start'&amp;#10;    ## Crealte an annotation&amp;#10;    minimal_trigger = ra.new_trigger(label, local_time + stable_offset_mean)&amp;#10;    ## Send the annotation to Pupil Core with the&amp;#10;    ## start trigger&amp;#10;    ra.send_trigger(pub_socket, minimal_trigger)&amp;#10;&amp;#10;## Write out what was displayed on the left side&amp;#10;trials.addData('left', left)" valType="extendedCode" updates="constant" name="Begin Routine"/>
         <Param val="Auto-&gt;JS" valType="str" updates="None" name="Code Type"/>
@@ -1806,7 +1806,7 @@
         <Param val="False" valType="bool" updates="constant" name="forceEndRoutine"/>
         <Param val="1" valType="num" updates="constant" name="granularity"/>
         <Param val="" valType="code" updates="None" name="initVal"/>
-        <Param val="&quot;Bardzo mało istotne&quot;, &quot;Bardzo&quot;" valType="list" updates="constant" name="labels"/>
+        <Param val="&quot;Bardzo mało istotne&quot;, &quot;Bardzo istotne&quot;" valType="list" updates="constant" name="labels"/>
         <Param val="0.04" valType="num" updates="constant" name="letterHeight"/>
         <Param val="smartwatch_price" valType="code" updates="None" name="name"/>
         <Param val="" valType="num" updates="constant" name="opacity"/>
