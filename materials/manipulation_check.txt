@@ -1,0 +1,2 @@
+Na ile serwis aukcyjny, z którego pochodziły produkty wydał Ci się wiarygodny?;Na ile serwis aukcyjny, z którego pochodziły produkty wzbudził Twoje zaufanie?;Na ile poleciłabyś serwis aukcyjny, z którego pochodziły produkty znajomym?
+Na ile serwis aukcyjny, z którego pochodziły produkty wydał Ci się wiarygodny?;Na ile serwis aukcyjny, z którego pochodziły produkty wzbudził Twoje zaufanie?;Na ile poleciłbyś serwis aukcyjny, z którego pochodziły produkty znajomym?
