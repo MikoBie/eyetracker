@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Thu Aug  3 14:18:09 2023
+    on Fri Mar  8 12:39:23 2024
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -229,8 +229,8 @@ else:
 stimulus = visual.ImageStim(
     win=win,
     name='stimulus', units='norm', 
-    image='sin', mask=None, anchor='top-center',
-    ori=0.0, pos=(0, 0.9), size=(.53,.7),
+    image='sin', mask=None, anchor='bottom-left',
+    ori=0.0, pos=(-1, -1), size=(2,2),
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=0.0)
@@ -295,7 +295,7 @@ if capture_exists:
     name_recording = f"R {expInfo['participant']}_{date}"
     pupil_remote.send_string(f"{name_recording}")
     pupil_remote.recv_string()
-
+img = 'png/01_Product Detail.png'
 
 # --- Initialize components for Routine "ratings" ---
 textbox = visual.TextBox2(
@@ -1201,7 +1201,7 @@ for thisTrial in trials:
     continueRoutine = True
     routineForceEnded = False
     # update component parameters for each repeat
-    stimulus.setImage(image)
+    stimulus.setImage(img)
     text.setText(price)
     left_text.reset()
     right_text.reset()
@@ -1211,6 +1211,7 @@ for thisTrial in trials:
     ## Randomize whether facts will be displayed on the
     ## left or right side of the screen.
     if randint(0,2):
+        img = 'png/02_Product Detail.png'
         opinions, facts = facts, opinions
         left, right = right, left
     
@@ -1283,7 +1284,7 @@ for thisTrial in trials:
             text.setAutoDraw(True)
         if text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > text.tStartRefresh + 15-frameTolerance:
+            if tThisFlipGlobal > text.tStartRefresh + 0-frameTolerance:
                 # keep track of stop time/frame for later
                 text.tStop = t  # not accounting for scr refresh
                 text.frameNStop = frameN  # exact frame index
@@ -1303,7 +1304,7 @@ for thisTrial in trials:
             left_text.setAutoDraw(True)
         if left_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > left_text.tStartRefresh + 15-frameTolerance:
+            if tThisFlipGlobal > left_text.tStartRefresh + 0-frameTolerance:
                 # keep track of stop time/frame for later
                 left_text.tStop = t  # not accounting for scr refresh
                 left_text.frameNStop = frameN  # exact frame index
@@ -1325,7 +1326,7 @@ for thisTrial in trials:
             right_text.setAutoDraw(True)
         if right_text.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > right_text.tStartRefresh + 15-frameTolerance:
+            if tThisFlipGlobal > right_text.tStartRefresh + 0-frameTolerance:
                 # keep track of stop time/frame for later
                 right_text.tStop = t  # not accounting for scr refresh
                 right_text.frameNStop = frameN  # exact frame index
@@ -1347,7 +1348,7 @@ for thisTrial in trials:
             left_title.setAutoDraw(True)
         if left_title.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > left_title.tStartRefresh + 15-frameTolerance:
+            if tThisFlipGlobal > left_title.tStartRefresh + 0-frameTolerance:
                 # keep track of stop time/frame for later
                 left_title.tStop = t  # not accounting for scr refresh
                 left_title.frameNStop = frameN  # exact frame index
@@ -1369,7 +1370,7 @@ for thisTrial in trials:
             right_title.setAutoDraw(True)
         if right_title.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > right_title.tStartRefresh + 15-frameTolerance:
+            if tThisFlipGlobal > right_title.tStartRefresh + 0-frameTolerance:
                 # keep track of stop time/frame for later
                 right_title.tStop = t  # not accounting for scr refresh
                 right_title.frameNStop = frameN  # exact frame index
