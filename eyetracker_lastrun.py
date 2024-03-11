@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Fri Mar  8 12:39:23 2024
+    on Mon Mar 11 20:20:02 2024
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -205,6 +205,14 @@ trust_instruction = visual.TextBox2(
 )
 space2_resp = keyboard.Keyboard()
 # Run 'Begin Experiment' code from trust
+lst_products = [ 'ebook', 'ekspres', 'glosnik', 'gogle',
+                 'gopro', 'laptop', 'lodowka', 'odkurzacz',
+                 'powerbank', 'rzutnik', 'sluchawki', 'smartband',
+                 'smartwatch', 'tablet', 'telewizor' ]
+                 
+shuffle(lst_products)
+
+
 ## Assigns the participant to the trust condition.
 ## If the id is even the participant is assigned
 ## to the trust condition. Oterwise to untrustworthy.
@@ -217,6 +225,7 @@ if int(expInfo['participant']) % 2 == 0:
         trust = trust_list[0]
     else:
         trust = trust_list[1]
+    product_trust = 'trust.png'
 else:
     with open('materials/untrust.txt', encoding="utf-8") as file:
         trust_list = file.readlines()
@@ -224,6 +233,7 @@ else:
         trust = trust_list[0]
     else:
         trust = trust_list[1]
+    product_trust = 'untrust.png'
 
 # --- Initialize components for Routine "products_display" ---
 stimulus = visual.ImageStim(
@@ -234,60 +244,8 @@ stimulus = visual.ImageStim(
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=0.0)
-text = visual.TextStim(win=win, name='text',
-    text='',
-    font='Open Sans',
-    units='norm', pos=(0, -.05), height=0.05, wrapWidth=50.0, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
-    languageStyle='LTR',
-    depth=-1.0);
-left_text = visual.TextBox2(
-     win, text='', font='Open Sans',
-     pos=(-.5, -0.45),units='norm',     letterHeight=0.04,
-     size=(.8, 1), borderWidth=2.0,
-     color='white', colorSpace='rgb',
-     opacity=None,
-     bold=False, italic=False,
-     lineSpacing=0.8,
-     padding=0.0, alignment='top-left',
-     anchor='top-center',
-     fillColor=None, borderColor=None,
-     flipHoriz=False, flipVert=False, languageStyle='LTR',
-     editable=False,
-     name='left_text',
-     autoLog=True,
-)
-right_text = visual.TextBox2(
-     win, text='', font='Open Sans',
-     pos=(.5, -0.45),units='norm',     letterHeight=0.04,
-     size=(.8, 1), borderWidth=2.0,
-     color='white', colorSpace='rgb',
-     opacity=None,
-     bold=False, italic=False,
-     lineSpacing=0.8,
-     padding=0.0, alignment='top-left',
-     anchor='top-center',
-     fillColor=None, borderColor=None,
-     flipHoriz=False, flipVert=False, languageStyle='LTR',
-     editable=False,
-     name='right_text',
-     autoLog=True,
-)
-left_title = visual.TextStim(win=win, name='left_title',
-    text='',
-    font='Open Sans',
-    units='norm', pos=(-.5, -0.35), height=0.05, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
-    languageStyle='LTR',
-    depth=-4.0);
-right_title = visual.TextStim(win=win, name='right_title',
-    text='',
-    font='Open Sans',
-    units='norm', pos=(.5, -0.35), height=0.05, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
-    languageStyle='LTR',
-    depth=-5.0);
 # Run 'Begin Experiment' code from code
+prd_n = 0
 ## Check whether Puil Core is connected
 if capture_exists:
     ## start a recording (necessary for this example script)
@@ -295,7 +253,7 @@ if capture_exists:
     name_recording = f"R {expInfo['participant']}_{date}"
     pupil_remote.send_string(f"{name_recording}")
     pupil_remote.recv_string()
-img = 'png/01_Product Detail.png'
+
 
 # --- Initialize components for Routine "ratings" ---
 textbox = visual.TextBox2(
@@ -1179,9 +1137,9 @@ thisExp.nextEntry()
 routineTimer.reset()
 
 # set up handler to look after randomisation of conditions etc
-trials = data.TrialHandler(nReps=1.0, method='random', 
+trials = data.TrialHandler(nReps=15.0, method='random', 
     extraInfo=expInfo, originPath=-1,
-    trialList=data.importConditions('materials/conditions.xlsx'),
+    trialList=[None],
     seed=None, name='trials')
 thisExp.addLoop(trials)  # add the loop to the experiment
 thisTrial = trials.trialList[0]  # so we can initialise stimuli with some values
@@ -1201,19 +1159,19 @@ for thisTrial in trials:
     continueRoutine = True
     routineForceEnded = False
     # update component parameters for each repeat
-    stimulus.setImage(img)
-    text.setText(price)
-    left_text.reset()
-    right_text.reset()
     # Run 'Begin Routine' code from code
-    left = 'FAKTY'
-    right = 'OPINIE'
     ## Randomize whether facts will be displayed on the
     ## left or right side of the screen.
     if randint(0,2):
-        img = 'png/02_Product Detail.png'
-        opinions, facts = facts, opinions
-        left, right = right, left
+        img = f'png/{lst_products[prd_n]}_fakty_opinie_{product_trust}'
+        left = 'fakty'
+        product = lst_products[prd_n]
+        prd_n += 1
+    else:
+        img = f'png/{lst_products[prd_n]}_opinie_fakty_{product_trust}'
+        left = 'opinie'
+        product = lst_products[prd_n]
+        prd_n += 1
     
     ## Check whether Pupil Core is connected
     if capture_exists:
@@ -1230,7 +1188,7 @@ for thisTrial in trials:
     ## Write out what was displayed on the left side
     trials.addData('left', left)
     # keep track of which components have finished
-    products_displayComponents = [stimulus, text, left_text, right_text, left_title, right_title]
+    products_displayComponents = [stimulus]
     for thisComponent in products_displayComponents:
         thisComponent.tStart = None
         thisComponent.tStop = None
@@ -1244,7 +1202,7 @@ for thisTrial in trials:
     frameN = -1
     
     # --- Run Routine "products_display" ---
-    while continueRoutine and routineTimer.getTime() < 15.0:
+    while continueRoutine and routineTimer.getTime() < 2.0:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
@@ -1264,121 +1222,15 @@ for thisTrial in trials:
             stimulus.setAutoDraw(True)
         if stimulus.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > stimulus.tStartRefresh + 15-frameTolerance:
+            if tThisFlipGlobal > stimulus.tStartRefresh + 2-frameTolerance:
                 # keep track of stop time/frame for later
                 stimulus.tStop = t  # not accounting for scr refresh
                 stimulus.frameNStop = frameN  # exact frame index
                 # add timestamp to datafile
                 thisExp.timestampOnFlip(win, 'stimulus.stopped')
                 stimulus.setAutoDraw(False)
-        
-        # *text* updates
-        if text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            text.frameNStart = frameN  # exact frame index
-            text.tStart = t  # local t and not account for scr refresh
-            text.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(text, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'text.started')
-            text.setAutoDraw(True)
-        if text.status == STARTED:
-            # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > text.tStartRefresh + 0-frameTolerance:
-                # keep track of stop time/frame for later
-                text.tStop = t  # not accounting for scr refresh
-                text.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'text.stopped')
-                text.setAutoDraw(False)
-        
-        # *left_text* updates
-        if left_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            left_text.frameNStart = frameN  # exact frame index
-            left_text.tStart = t  # local t and not account for scr refresh
-            left_text.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(left_text, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'left_text.started')
-            left_text.setAutoDraw(True)
-        if left_text.status == STARTED:
-            # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > left_text.tStartRefresh + 0-frameTolerance:
-                # keep track of stop time/frame for later
-                left_text.tStop = t  # not accounting for scr refresh
-                left_text.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'left_text.stopped')
-                left_text.setAutoDraw(False)
-        if left_text.status == STARTED:  # only update if drawing
-            left_text.setText(facts, log=False)
-        
-        # *right_text* updates
-        if right_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            right_text.frameNStart = frameN  # exact frame index
-            right_text.tStart = t  # local t and not account for scr refresh
-            right_text.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(right_text, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'right_text.started')
-            right_text.setAutoDraw(True)
-        if right_text.status == STARTED:
-            # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > right_text.tStartRefresh + 0-frameTolerance:
-                # keep track of stop time/frame for later
-                right_text.tStop = t  # not accounting for scr refresh
-                right_text.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'right_text.stopped')
-                right_text.setAutoDraw(False)
-        if right_text.status == STARTED:  # only update if drawing
-            right_text.setText(opinions, log=False)
-        
-        # *left_title* updates
-        if left_title.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            left_title.frameNStart = frameN  # exact frame index
-            left_title.tStart = t  # local t and not account for scr refresh
-            left_title.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(left_title, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'left_title.started')
-            left_title.setAutoDraw(True)
-        if left_title.status == STARTED:
-            # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > left_title.tStartRefresh + 0-frameTolerance:
-                # keep track of stop time/frame for later
-                left_title.tStop = t  # not accounting for scr refresh
-                left_title.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'left_title.stopped')
-                left_title.setAutoDraw(False)
-        if left_title.status == STARTED:  # only update if drawing
-            left_title.setText(left, log=False)
-        
-        # *right_title* updates
-        if right_title.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            right_title.frameNStart = frameN  # exact frame index
-            right_title.tStart = t  # local t and not account for scr refresh
-            right_title.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(right_title, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'right_title.started')
-            right_title.setAutoDraw(True)
-        if right_title.status == STARTED:
-            # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > right_title.tStartRefresh + 0-frameTolerance:
-                # keep track of stop time/frame for later
-                right_title.tStop = t  # not accounting for scr refresh
-                right_title.frameNStop = frameN  # exact frame index
-                # add timestamp to datafile
-                thisExp.timestampOnFlip(win, 'right_title.stopped')
-                right_title.setAutoDraw(False)
-        if right_title.status == STARTED:  # only update if drawing
-            right_title.setText(right, log=False)
+        if stimulus.status == STARTED:  # only update if drawing
+            stimulus.setImage(img, log=False)
         
         # check for quit (typically the Esc key)
         if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1415,7 +1267,7 @@ for thisTrial in trials:
     if routineForceEnded:
         routineTimer.reset()
     else:
-        routineTimer.addTime(-15.000000)
+        routineTimer.addTime(-2.000000)
     
     # --- Prepare to start Routine "ratings" ---
     continueRoutine = True
@@ -1876,7 +1728,7 @@ for thisTrial in trials:
     routineTimer.reset()
     thisExp.nextEntry()
     
-# completed 1.0 repeats of 'trials'
+# completed 15.0 repeats of 'trials'
 
 
 # --- Prepare to start Routine "trust_check" ---
