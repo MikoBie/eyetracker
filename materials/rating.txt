@@ -1,0 +1,3 @@
+Na ile gwiazdek w skali od 1 do 5 oceniłabyś prezentowany przed chwilą produkt? Najedź kursorem na rząd z wybraną liczbą gwiazdek i naciśnij lewy klawisz myszy.
+Na ile gwiazdek w skali od 1 do 5 oceniłbyś prezentowany przed chwilą produkt? Najedź kursorem na rząd z wybraną liczbą gwiazdek i naciśnij lewy klawisz myszy.
+

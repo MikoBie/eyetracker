@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Mon Mar 11 20:20:02 2024
+    on Tue Mar 12 18:44:56 2024
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -14,7 +14,7 @@ If you publish work using this script the most relevant publication is:
 # --- Import packages ---
 from psychopy import locale_setup
 from psychopy import prefs
-from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout
+from psychopy import sound, gui, visual, core, data, event, logging, clock, colors, layout, iohub, hardware
 from psychopy.constants import (NOT_STARTED, STARTED, PLAYING, PAUSED,
                                 STOPPED, FINISHED, PRESSED, RELEASED, FOREVER)
 
@@ -99,7 +99,7 @@ frameTolerance = 0.001  # how close to onset before 'same' frame
 win = visual.Window(
     size=[1920, 1080], fullscr=True, screen=0, 
     winType='pyglet', allowStencil=False,
-    monitor='testMonitor', color=[0.0000, 0.0000, 0.0000], colorSpace='rgb',
+    monitor='testMonitor', color=[1.0000, 1.0000, 1.0000], colorSpace='rgb',
     blendMode='avg', useFBO=True, 
     units='height')
 win.mouseVisible = False
@@ -146,17 +146,17 @@ defaultKeyboard = keyboard.Keyboard(backend='iohub')
 # --- Initialize components for Routine "instruction" ---
 space = visual.TextStim(win=win, name='space',
     text='Naciśnij spację, żeby przejść dalej',
-    font='Open Sans',
+    font='Poppins',
     pos=(0, -.4), height=0.05, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
 space_resp = keyboard.Keyboard()
 welcome_message = visual.TextBox2(
-     win, text='', font='Open Sans',
-     pos=(-.8, .4),     letterHeight=0.04,
+     win, text='', font='Poppins',
+     pos=(-.8, .45),     letterHeight=0.04,
      size=(1.6, .5), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -182,16 +182,16 @@ else:
 # --- Initialize components for Routine "trust_manipulation" ---
 space2 = visual.TextStim(win=win, name='space2',
     text='Naciśnij spację, żeby przejść dalej',
-    font='Open Sans',
+    font='Poppins',
     pos=(0, -.4), height=0.05, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
 trust_instruction = visual.TextBox2(
-     win, text='', font='Open Sans',
+     win, text='', font='Poppins',
      pos=(-.8, .4),     letterHeight=0.04,
      size=(1.6, .5), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -205,35 +205,52 @@ trust_instruction = visual.TextBox2(
 )
 space2_resp = keyboard.Keyboard()
 # Run 'Begin Experiment' code from trust
+## List of all products
 lst_products = [ 'ebook', 'ekspres', 'glosnik', 'gogle',
                  'gopro', 'laptop', 'lodowka', 'odkurzacz',
                  'powerbank', 'rzutnik', 'sluchawki', 'smartband',
                  'smartwatch', 'tablet', 'telewizor' ]
-                 
+## Shuffle the list of all products. This way
+## every person has a distinct order of displayed
+## products.
 shuffle(lst_products)
-
 
 ## Assigns the participant to the trust condition.
 ## If the id is even the participant is assigned
 ## to the trust condition. Oterwise to untrustworthy.
 ## Additionally, it reads relevant instruction
 ## either for females or males.
+with open('materials/rating.txt', encoding="utf-8") as file:
+    rating_list = file.readlines()
 if int(expInfo['participant']) % 2 == 0:
     with open('materials/trust.txt', encoding="utf-8") as file:
         trust_list = file.readlines()
     if expInfo['płeć'] == 'kobieta':
         trust = trust_list[0]
+        rating = rating_list[0]
     else:
         trust = trust_list[1]
+        rating = rating_list[1]
     product_trust = 'trust.png'
 else:
     with open('materials/untrust.txt', encoding="utf-8") as file:
         trust_list = file.readlines()
     if expInfo['płeć'] == 'kobieta':
         trust = trust_list[0]
+        rating = rating_list[0]
     else:
         trust = trust_list[1]
+        rating = rating_list[1]
     product_trust = 'untrust.png'
+
+# --- Initialize components for Routine "fixation_cross" ---
+cross = visual.TextStim(win=win, name='cross',
+    text='x',
+    font='Poppins',
+    pos=(0, 0), height=0.05, wrapWidth=None, ori=0.0, 
+    color='black', colorSpace='rgb', opacity=None, 
+    languageStyle='LTR',
+    depth=0.0);
 
 # --- Initialize components for Routine "products_display" ---
 stimulus = visual.ImageStim(
@@ -257,10 +274,10 @@ if capture_exists:
 
 # --- Initialize components for Routine "ratings" ---
 textbox = visual.TextBox2(
-     win, text='Na ile gwiazdek w skali od 1 do 5 oceniłabyś/oceniłbyś prezentowany przed chwilą produkt? Najedź kursorem na rząd z wybraną liczbą gwiazdek i naciśnij lewy klawisz myszy.\n', font='Open Sans',
+     win, text=rating, font='Poppins',
      pos=(0, .4),     letterHeight=0.05,
      size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -471,10 +488,10 @@ condition_order = 1
 
 # --- Initialize components for Routine "trust_check" ---
 trust_2 = visual.TextBox2(
-     win, text='', font='Open Sans',
+     win, text='', font='Poppins',
      pos=(0, .35),     letterHeight=0.04,
      size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -487,10 +504,10 @@ trust_2 = visual.TextBox2(
      autoLog=True,
 )
 trust_3 = visual.TextBox2(
-     win, text='', font='Open Sans',
+     win, text='', font='Poppins',
      pos=(0, .05),     letterHeight=0.04,
      size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -503,10 +520,10 @@ trust_3 = visual.TextBox2(
      autoLog=True,
 )
 trust_4 = visual.TextBox2(
-     win, text='', font='Open Sans',
+     win, text='', font='Poppins',
      pos=(0, -.25),     letterHeight=0.04,
      size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -522,186 +539,30 @@ slider_trust2 = visual.Slider(win=win, name='slider_trust2',
     startValue=None, size=(0.7, 0.04), pos=(0, .3), units=None,
     labels=["Bardzo mało wiarygodny", "Bardzo wiarygodny"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
     style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.03,
+    labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
+    font='Poppins', labelHeight=0.03,
     flip=False, ori=0.0, depth=-3, readOnly=False)
 slider_trust3 = visual.Slider(win=win, name='slider_trust3',
     startValue=None, size=(0.7, 0.04), pos=(0, 0), units=None,
     labels=["Bardzo mało zaufany", "Bardzo zaufany"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
     style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.03,
+    labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
+    font='Poppins', labelHeight=0.03,
     flip=False, ori=0.0, depth=-4, readOnly=False)
 slider_trust4 = visual.Slider(win=win, name='slider_trust4',
     startValue=None, size=(0.7, 0.04), pos=(0, -.3), units=None,
     labels=["Bardzo niegodny polecenia", "Bardzo godny polecenia"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
     style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.03,
+    labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
+    font='Poppins', labelHeight=0.03,
     flip=False, ori=0.0, depth=-5, readOnly=False)
-
-# --- Initialize components for Routine "awareness_opinions_check" ---
-awareness_opinions = visual.TextBox2(
-     win, text='W przypadku swojej oceny każdego produktu wskaż, na ile istotne były dla Ciebie opinie na temat danego produktu?\n', font='Open Sans',
-     pos=(0, .37),     letterHeight=0.05,
-     size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
-     opacity=None,
-     bold=False, italic=False,
-     lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center',
-     fillColor=None, borderColor=None,
-     flipHoriz=False, flipVert=False, languageStyle='LTR',
-     editable=False,
-     name='awareness_opinions',
-     autoLog=True,
-)
-laptop_opinions = visual.Slider(win=win, name='laptop_opinions',
-    startValue=None, size=(.7, .05), pos=(-0.4, 0.5), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-1, readOnly=False)
-smartwatch_opinions = visual.Slider(win=win, name='smartwatch_opinions',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-2, readOnly=False)
-smartband_opinions = visual.Slider(win=win, name='smartband_opinions',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-3, readOnly=False)
-tablet_opinions = visual.Slider(win=win, name='tablet_opinions',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-4, readOnly=False)
-laptop = visual.ImageStim(
-    win=win,
-    name='laptop', units='norm', 
-    image='png/laptop_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, 0.5), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-5.0)
-smartwatch = visual.ImageStim(
-    win=win,
-    name='smartwatch', units='norm', 
-    image='png/smartwatch_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, 0.1), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-6.0)
-smartband = visual.ImageStim(
-    win=win,
-    name='smartband', units='norm', 
-    image='png/smartband_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, - 0.3), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-7.0)
-tablet = visual.ImageStim(
-    win=win,
-    name='tablet', units='norm', 
-    image='png/tablet_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, -0.7), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-8.0)
-
-# --- Initialize components for Routine "awareness_facts_check" ---
-awareness_facts = visual.TextBox2(
-     win, text='W przypadku swojej oceny każdego produktu wskaż, na ile istotne były dla Ciebie fakty na temat danego produktu?', font='Open Sans',
-     pos=(0, .4),     letterHeight=0.05,
-     size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
-     opacity=None,
-     bold=False, italic=False,
-     lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center',
-     fillColor=None, borderColor=None,
-     flipHoriz=False, flipVert=False, languageStyle='LTR',
-     editable=False,
-     name='awareness_facts',
-     autoLog=True,
-)
-laptop_facts = visual.Slider(win=win, name='laptop_facts',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.5), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-1, readOnly=False)
-smartwatch_facts = visual.Slider(win=win, name='smartwatch_facts',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-2, readOnly=False)
-smartband_facts = visual.Slider(win=win, name='smartband_facts',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-3, readOnly=False)
-tablet_facts = visual.Slider(win=win, name='tablet_facts',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-4, readOnly=False)
-laptop2 = visual.ImageStim(
-    win=win,
-    name='laptop2', units='norm', 
-    image='png/laptop_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, 0.5), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-5.0)
-smartwatch2 = visual.ImageStim(
-    win=win,
-    name='smartwatch2', units='norm', 
-    image='png/smartwatch_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, 0.1), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-6.0)
-tablet2 = visual.ImageStim(
-    win=win,
-    name='tablet2', units='norm', 
-    image='png/tablet_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, -0.7), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-7.0)
-smartband2 = visual.ImageStim(
-    win=win,
-    name='smartband2', units='norm', 
-    image='png/smartband_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, -0.3), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-8.0)
 
 # --- Initialize components for Routine "expertise_check" ---
 expertise = visual.TextBox2(
-     win, text='', font='Open Sans',
+     win, text='', font='Poppins',
      pos=(0, .35),     letterHeight=0.05,
      size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -717,7 +578,7 @@ slider_exp = visual.Slider(win=win, name='slider_exp',
     startValue=None, size=(0.7, 0.05), pos=(0, -0.1), units=None,
     labels=["Wcale", "W pełni"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
     style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
     font='Open Sans', labelHeight=0.05,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 # Run 'Begin Experiment' code from code_8
@@ -731,104 +592,26 @@ if expInfo['płeć'] == 'kobieta':
 else:
     exp_text = expertise_q[1].replace(';','\n\n')
 
-# --- Initialize components for Routine "awareness_price_check" ---
-awareness_price = visual.TextBox2(
-     win, text='W przypadku swojej oceny każdego produktu wskaż, jak bardzo istotna była dla Ciebie jego cena?', font='Open Sans',
-     pos=(0, .4),     letterHeight=0.05,
-     size=(1.5, .2), borderWidth=2.0,
-     color='white', colorSpace='rgb',
-     opacity=None,
-     bold=False, italic=False,
-     lineSpacing=1.0,
-     padding=0.0, alignment='center',
-     anchor='center',
-     fillColor=None, borderColor=None,
-     flipHoriz=False, flipVert=False, languageStyle='LTR',
-     editable=False,
-     name='awareness_price',
-     autoLog=True,
-)
-laptop_price = visual.Slider(win=win, name='laptop_price',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.5), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-1, readOnly=False)
-smartwatch_price = visual.Slider(win=win, name='smartwatch_price',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, 0.1), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-2, readOnly=False)
-smartband_price = visual.Slider(win=win, name='smartband_price',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.3), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-3, readOnly=False)
-tablet_price = visual.Slider(win=win, name='tablet_price',
-    startValue=None, size=(0.7, 0.05), pos=(-0.4, -0.7), units='norm',
-    labels=["Bardzo mało istotne", "Bardzo istotne"], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
-    style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
-    font='Open Sans', labelHeight=0.04,
-    flip=False, ori=0.0, depth=-4, readOnly=False)
-laptop3 = visual.ImageStim(
-    win=win,
-    name='laptop3', units='norm', 
-    image='png/laptop_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, 0.5), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-5.0)
-smartwatch3 = visual.ImageStim(
-    win=win,
-    name='smartwatch3', units='norm', 
-    image='png/smartwatch_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, 0.1), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-6.0)
-smartband3 = visual.ImageStim(
-    win=win,
-    name='smartband3', units='norm', 
-    image='png/smartband_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, -0.3), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-7.0)
-tablet3 = visual.ImageStim(
-    win=win,
-    name='tablet3', units='norm', 
-    image='png/tablet_m.png', mask=None, anchor='center',
-    ori=0.0, pos=(0.4, -0.7), size=(0.225, 0.3),
-    color=[1,1,1], colorSpace='rgb', opacity=None,
-    flipHoriz=False, flipVert=False,
-    texRes=128.0, interpolate=True, depth=-8.0)
-
 # --- Initialize components for Routine "carbon_footprint" ---
 carbon_foot = visual.TextStim(win=win, name='carbon_foot',
     text="Czym jest 'ślad węglowy'?",
-    font='Open Sans',
+    font='Poppins',
     pos=(0, 0.4), height=0.05, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
 carbon_footprint_scale = visual.Slider(win=win, name='carbon_footprint_scale',
     startValue=None, size=(.025, .8), pos=(-.6, 0), units='norm',
     labels=None, ticks=(1, 2, 3, 4), granularity=1.0,
     style='radio', styleTweaks=('labels45',), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    labelColor='LightGray', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
     font='Open Sans', labelHeight=0.03,
     flip=True, ori=-1.0, depth=-1, readOnly=False)
 a = visual.TextBox2(
-     win, text='Jest to ekwiwalent ilości węgla zużytej do wyprodukowania danej rzeczy.', font='Open Sans',
+     win, text='Jest to ekwiwalent ilości węgla zużytej do wyprodukowania danej rzeczy.', font='Poppins',
      pos=(-.5, .44),units='norm',     letterHeight=0.05,
      size=(1, .25), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -841,10 +624,10 @@ a = visual.TextBox2(
      autoLog=True,
 )
 b = visual.TextBox2(
-     win, text='Jest to ekwiwalent ilości gazów cieplarnianych, jaka zostałaby wyemitowana do atmosfery przy degradacji produktu.', font='Open Sans',
+     win, text='Jest to ekwiwalent ilości gazów cieplarnianych, jaka zostałaby wyemitowana do atmosfery przy degradacji produktu.', font='Poppins',
      pos=(-.5, .2),units='norm',     letterHeight=0.05,
      size=(1, .5), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -857,10 +640,10 @@ b = visual.TextBox2(
      autoLog=True,
 )
 c = visual.TextBox2(
-     win, text='Jest to całkowita suma emisji gazów cieplarnianych wywołanych bezpośrednio lub pośrednio przez dany produkt.', font='Open Sans',
+     win, text='Jest to całkowita suma emisji gazów cieplarnianych wywołanych bezpośrednio lub pośrednio przez dany produkt.', font='Poppins',
      pos=(-.5, -.06),units='norm',     letterHeight=0.05,
      size=(1, .5), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -873,10 +656,10 @@ c = visual.TextBox2(
      autoLog=True,
 )
 d = visual.TextBox2(
-     win, text='Jest to suma emisji dwutlenku węgla, jaka trafia do atmosfery w związku z użytkowaniem produktu.', font='Open Sans',
+     win, text='Jest to suma emisji dwutlenku węgla, jaka trafia do atmosfery w związku z użytkowaniem produktu.', font='Poppins',
      pos=(-.5, -.32),units='norm',     letterHeight=0.05,
      size=(1, .5), borderWidth=2.0,
-     color='white', colorSpace='rgb',
+     color='black', colorSpace='rgb',
      opacity=None,
      bold=False, italic=False,
      lineSpacing=1.0,
@@ -892,25 +675,25 @@ d = visual.TextBox2(
 # --- Initialize components for Routine "environmentalism_check" ---
 environmentalism = visual.TextStim(win=win, name='environmentalism',
     text='Jak dużą wagę przywiązujesz do kwestii środowiskowych robiąc zakupy?',
-    font='Open Sans',
+    font='Poppins',
     pos=(0, 0.4), height=0.05, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
 slider_env = visual.Slider(win=win, name='slider_env',
     startValue=None, size=(0.7, 0.05), pos=(0, 0.2), units='norm',
     labels=["Bardzo małą", "Bardzo dużą"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
     style='radio', styleTweaks=(), opacity=None,
-    labelColor='LightGray', markerColor='Black', lineColor='White', colorSpace='rgb',
+    labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
     font='Open Sans', labelHeight=0.05,
     flip=False, ori=0.0, depth=-1, readOnly=False)
 
 # --- Initialize components for Routine "end" ---
 text_instr = visual.TextStim(win=win, name='text_instr',
     text='Dziękujemy za udział w badaniu!',
-    font='Arial',
+    font='Poppins',
     pos=(0, 0), height=0.04, wrapWidth=None, ori=0.0, 
-    color='white', colorSpace='rgb', opacity=None, 
+    color='black', colorSpace='rgb', opacity=None, 
     languageStyle='LTR',
     depth=0.0);
 key_resp_3 = keyboard.Keyboard()
@@ -1155,6 +938,81 @@ for thisTrial in trials:
         for paramName in thisTrial:
             exec('{} = thisTrial[paramName]'.format(paramName))
     
+    # --- Prepare to start Routine "fixation_cross" ---
+    continueRoutine = True
+    routineForceEnded = False
+    # update component parameters for each repeat
+    # keep track of which components have finished
+    fixation_crossComponents = [cross]
+    for thisComponent in fixation_crossComponents:
+        thisComponent.tStart = None
+        thisComponent.tStop = None
+        thisComponent.tStartRefresh = None
+        thisComponent.tStopRefresh = None
+        if hasattr(thisComponent, 'status'):
+            thisComponent.status = NOT_STARTED
+    # reset timers
+    t = 0
+    _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+    frameN = -1
+    
+    # --- Run Routine "fixation_cross" ---
+    while continueRoutine and routineTimer.getTime() < 0.5:
+        # get current time
+        t = routineTimer.getTime()
+        tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+        tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+        frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+        # update/draw components on each frame
+        
+        # *cross* updates
+        if cross.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            cross.frameNStart = frameN  # exact frame index
+            cross.tStart = t  # local t and not account for scr refresh
+            cross.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(cross, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'cross.started')
+            cross.setAutoDraw(True)
+        if cross.status == STARTED:
+            # is it time to stop? (based on global clock, using actual start)
+            if tThisFlipGlobal > cross.tStartRefresh + .5-frameTolerance:
+                # keep track of stop time/frame for later
+                cross.tStop = t  # not accounting for scr refresh
+                cross.frameNStop = frameN  # exact frame index
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'cross.stopped')
+                cross.setAutoDraw(False)
+        
+        # check for quit (typically the Esc key)
+        if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
+            core.quit()
+        
+        # check if all components have finished
+        if not continueRoutine:  # a component has requested a forced-end of Routine
+            routineForceEnded = True
+            break
+        continueRoutine = False  # will revert to True if at least one component still running
+        for thisComponent in fixation_crossComponents:
+            if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                continueRoutine = True
+                break  # at least one component has not yet finished
+        
+        # refresh the screen
+        if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+            win.flip()
+    
+    # --- Ending Routine "fixation_cross" ---
+    for thisComponent in fixation_crossComponents:
+        if hasattr(thisComponent, "setAutoDraw"):
+            thisComponent.setAutoDraw(False)
+    # using non-slip timing so subtract the expected duration of this Routine (unless ended on request)
+    if routineForceEnded:
+        routineTimer.reset()
+    else:
+        routineTimer.addTime(-0.500000)
+    
     # --- Prepare to start Routine "products_display" ---
     continueRoutine = True
     routineForceEnded = False
@@ -1187,6 +1045,7 @@ for thisTrial in trials:
     
     ## Write out what was displayed on the left side
     trials.addData('left', left)
+    trials.addData('product', product)
     # keep track of which components have finished
     products_displayComponents = [stimulus]
     for thisComponent in products_displayComponents:
@@ -1202,7 +1061,7 @@ for thisTrial in trials:
     frameN = -1
     
     # --- Run Routine "products_display" ---
-    while continueRoutine and routineTimer.getTime() < 2.0:
+    while continueRoutine and routineTimer.getTime() < 1.0:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
@@ -1222,7 +1081,7 @@ for thisTrial in trials:
             stimulus.setAutoDraw(True)
         if stimulus.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > stimulus.tStartRefresh + 2-frameTolerance:
+            if tThisFlipGlobal > stimulus.tStartRefresh + 1-frameTolerance:
                 # keep track of stop time/frame for later
                 stimulus.tStop = t  # not accounting for scr refresh
                 stimulus.frameNStop = frameN  # exact frame index
@@ -1267,7 +1126,7 @@ for thisTrial in trials:
     if routineForceEnded:
         routineTimer.reset()
     else:
-        routineTimer.addTime(-2.000000)
+        routineTimer.addTime(-1.000000)
     
     # --- Prepare to start Routine "ratings" ---
     continueRoutine = True
@@ -1883,340 +1742,6 @@ thisExp.addData('slider_trust4.rt', slider_trust4.getRT())
 # the Routine "trust_check" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
-# --- Prepare to start Routine "awareness_opinions_check" ---
-continueRoutine = True
-routineForceEnded = False
-# update component parameters for each repeat
-awareness_opinions.reset()
-laptop_opinions.reset()
-smartwatch_opinions.reset()
-smartband_opinions.reset()
-tablet_opinions.reset()
-# keep track of which components have finished
-awareness_opinions_checkComponents = [awareness_opinions, laptop_opinions, smartwatch_opinions, smartband_opinions, tablet_opinions, laptop, smartwatch, smartband, tablet]
-for thisComponent in awareness_opinions_checkComponents:
-    thisComponent.tStart = None
-    thisComponent.tStop = None
-    thisComponent.tStartRefresh = None
-    thisComponent.tStopRefresh = None
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
-# reset timers
-t = 0
-_timeToFirstFrame = win.getFutureFlipTime(clock="now")
-frameN = -1
-
-# --- Run Routine "awareness_opinions_check" ---
-while continueRoutine:
-    # get current time
-    t = routineTimer.getTime()
-    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
-    
-    # *awareness_opinions* updates
-    if awareness_opinions.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        awareness_opinions.frameNStart = frameN  # exact frame index
-        awareness_opinions.tStart = t  # local t and not account for scr refresh
-        awareness_opinions.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(awareness_opinions, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'awareness_opinions.started')
-        awareness_opinions.setAutoDraw(True)
-    
-    # *laptop_opinions* updates
-    if laptop_opinions.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        laptop_opinions.frameNStart = frameN  # exact frame index
-        laptop_opinions.tStart = t  # local t and not account for scr refresh
-        laptop_opinions.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(laptop_opinions, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'laptop_opinions.started')
-        laptop_opinions.setAutoDraw(True)
-    
-    # *smartwatch_opinions* updates
-    if smartwatch_opinions.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartwatch_opinions.frameNStart = frameN  # exact frame index
-        smartwatch_opinions.tStart = t  # local t and not account for scr refresh
-        smartwatch_opinions.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartwatch_opinions, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartwatch_opinions.started')
-        smartwatch_opinions.setAutoDraw(True)
-    
-    # *smartband_opinions* updates
-    if smartband_opinions.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartband_opinions.frameNStart = frameN  # exact frame index
-        smartband_opinions.tStart = t  # local t and not account for scr refresh
-        smartband_opinions.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartband_opinions, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartband_opinions.started')
-        smartband_opinions.setAutoDraw(True)
-    
-    # *tablet_opinions* updates
-    if tablet_opinions.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        tablet_opinions.frameNStart = frameN  # exact frame index
-        tablet_opinions.tStart = t  # local t and not account for scr refresh
-        tablet_opinions.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(tablet_opinions, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'tablet_opinions.started')
-        tablet_opinions.setAutoDraw(True)
-    
-    # *laptop* updates
-    if laptop.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        laptop.frameNStart = frameN  # exact frame index
-        laptop.tStart = t  # local t and not account for scr refresh
-        laptop.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(laptop, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'laptop.started')
-        laptop.setAutoDraw(True)
-    
-    # *smartwatch* updates
-    if smartwatch.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartwatch.frameNStart = frameN  # exact frame index
-        smartwatch.tStart = t  # local t and not account for scr refresh
-        smartwatch.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartwatch, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartwatch.started')
-        smartwatch.setAutoDraw(True)
-    
-    # *smartband* updates
-    if smartband.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartband.frameNStart = frameN  # exact frame index
-        smartband.tStart = t  # local t and not account for scr refresh
-        smartband.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartband, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartband.started')
-        smartband.setAutoDraw(True)
-    
-    # *tablet* updates
-    if tablet.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        tablet.frameNStart = frameN  # exact frame index
-        tablet.tStart = t  # local t and not account for scr refresh
-        tablet.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(tablet, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'tablet.started')
-        tablet.setAutoDraw(True)
-    # Run 'Each Frame' code from code_4
-    if laptop_opinions.rating and smartwatch_opinions.rating and smartband_opinions.rating and tablet_opinions.rating:
-        continueRoutine=False
-    
-    # check for quit (typically the Esc key)
-    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
-        core.quit()
-    
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        routineForceEnded = True
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in awareness_opinions_checkComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-    
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# --- Ending Routine "awareness_opinions_check" ---
-for thisComponent in awareness_opinions_checkComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-thisExp.addData('laptop_opinions.response', laptop_opinions.getRating())
-thisExp.addData('laptop_opinions.rt', laptop_opinions.getRT())
-thisExp.addData('smartwatch_opinions.response', smartwatch_opinions.getRating())
-thisExp.addData('smartwatch_opinions.rt', smartwatch_opinions.getRT())
-thisExp.addData('smartband_opinions.response', smartband_opinions.getRating())
-thisExp.addData('smartband_opinions.rt', smartband_opinions.getRT())
-thisExp.addData('tablet_opinions.response', tablet_opinions.getRating())
-thisExp.addData('tablet_opinions.rt', tablet_opinions.getRT())
-# the Routine "awareness_opinions_check" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
-# --- Prepare to start Routine "awareness_facts_check" ---
-continueRoutine = True
-routineForceEnded = False
-# update component parameters for each repeat
-awareness_facts.reset()
-laptop_facts.reset()
-smartwatch_facts.reset()
-smartband_facts.reset()
-tablet_facts.reset()
-# keep track of which components have finished
-awareness_facts_checkComponents = [awareness_facts, laptop_facts, smartwatch_facts, smartband_facts, tablet_facts, laptop2, smartwatch2, tablet2, smartband2]
-for thisComponent in awareness_facts_checkComponents:
-    thisComponent.tStart = None
-    thisComponent.tStop = None
-    thisComponent.tStartRefresh = None
-    thisComponent.tStopRefresh = None
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
-# reset timers
-t = 0
-_timeToFirstFrame = win.getFutureFlipTime(clock="now")
-frameN = -1
-
-# --- Run Routine "awareness_facts_check" ---
-while continueRoutine:
-    # get current time
-    t = routineTimer.getTime()
-    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
-    
-    # *awareness_facts* updates
-    if awareness_facts.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        awareness_facts.frameNStart = frameN  # exact frame index
-        awareness_facts.tStart = t  # local t and not account for scr refresh
-        awareness_facts.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(awareness_facts, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'awareness_facts.started')
-        awareness_facts.setAutoDraw(True)
-    
-    # *laptop_facts* updates
-    if laptop_facts.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        laptop_facts.frameNStart = frameN  # exact frame index
-        laptop_facts.tStart = t  # local t and not account for scr refresh
-        laptop_facts.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(laptop_facts, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'laptop_facts.started')
-        laptop_facts.setAutoDraw(True)
-    
-    # *smartwatch_facts* updates
-    if smartwatch_facts.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartwatch_facts.frameNStart = frameN  # exact frame index
-        smartwatch_facts.tStart = t  # local t and not account for scr refresh
-        smartwatch_facts.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartwatch_facts, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartwatch_facts.started')
-        smartwatch_facts.setAutoDraw(True)
-    
-    # *smartband_facts* updates
-    if smartband_facts.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartband_facts.frameNStart = frameN  # exact frame index
-        smartband_facts.tStart = t  # local t and not account for scr refresh
-        smartband_facts.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartband_facts, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartband_facts.started')
-        smartband_facts.setAutoDraw(True)
-    
-    # *tablet_facts* updates
-    if tablet_facts.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        tablet_facts.frameNStart = frameN  # exact frame index
-        tablet_facts.tStart = t  # local t and not account for scr refresh
-        tablet_facts.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(tablet_facts, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'tablet_facts.started')
-        tablet_facts.setAutoDraw(True)
-    
-    # *laptop2* updates
-    if laptop2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        laptop2.frameNStart = frameN  # exact frame index
-        laptop2.tStart = t  # local t and not account for scr refresh
-        laptop2.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(laptop2, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'laptop2.started')
-        laptop2.setAutoDraw(True)
-    
-    # *smartwatch2* updates
-    if smartwatch2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartwatch2.frameNStart = frameN  # exact frame index
-        smartwatch2.tStart = t  # local t and not account for scr refresh
-        smartwatch2.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartwatch2, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartwatch2.started')
-        smartwatch2.setAutoDraw(True)
-    
-    # *tablet2* updates
-    if tablet2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        tablet2.frameNStart = frameN  # exact frame index
-        tablet2.tStart = t  # local t and not account for scr refresh
-        tablet2.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(tablet2, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'tablet2.started')
-        tablet2.setAutoDraw(True)
-    
-    # *smartband2* updates
-    if smartband2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartband2.frameNStart = frameN  # exact frame index
-        smartband2.tStart = t  # local t and not account for scr refresh
-        smartband2.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartband2, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartband2.started')
-        smartband2.setAutoDraw(True)
-    # Run 'Each Frame' code from code_5
-    if laptop_facts.rating and smartwatch_facts.rating and smartband_facts.rating and tablet_facts.rating:
-        continueRoutine=False
-    
-    # check for quit (typically the Esc key)
-    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
-        core.quit()
-    
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        routineForceEnded = True
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in awareness_facts_checkComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-    
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# --- Ending Routine "awareness_facts_check" ---
-for thisComponent in awareness_facts_checkComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-thisExp.addData('laptop_facts.response', laptop_facts.getRating())
-thisExp.addData('laptop_facts.rt', laptop_facts.getRT())
-thisExp.addData('smartwatch_facts.response', smartwatch_facts.getRating())
-thisExp.addData('smartwatch_facts.rt', smartwatch_facts.getRT())
-thisExp.addData('smartband_facts.response', smartband_facts.getRating())
-thisExp.addData('smartband_facts.rt', smartband_facts.getRT())
-thisExp.addData('tablet_facts.response', tablet_facts.getRating())
-thisExp.addData('tablet_facts.rt', tablet_facts.getRT())
-# the Routine "awareness_facts_check" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
 # --- Prepare to start Routine "expertise_check" ---
 continueRoutine = True
 routineForceEnded = False
@@ -2298,173 +1823,6 @@ for thisComponent in expertise_checkComponents:
 thisExp.addData('slider_exp.response', slider_exp.getRating())
 thisExp.addData('slider_exp.rt', slider_exp.getRT())
 # the Routine "expertise_check" was not non-slip safe, so reset the non-slip timer
-routineTimer.reset()
-
-# --- Prepare to start Routine "awareness_price_check" ---
-continueRoutine = True
-routineForceEnded = False
-# update component parameters for each repeat
-awareness_price.reset()
-laptop_price.reset()
-smartwatch_price.reset()
-smartband_price.reset()
-tablet_price.reset()
-# keep track of which components have finished
-awareness_price_checkComponents = [awareness_price, laptop_price, smartwatch_price, smartband_price, tablet_price, laptop3, smartwatch3, smartband3, tablet3]
-for thisComponent in awareness_price_checkComponents:
-    thisComponent.tStart = None
-    thisComponent.tStop = None
-    thisComponent.tStartRefresh = None
-    thisComponent.tStopRefresh = None
-    if hasattr(thisComponent, 'status'):
-        thisComponent.status = NOT_STARTED
-# reset timers
-t = 0
-_timeToFirstFrame = win.getFutureFlipTime(clock="now")
-frameN = -1
-
-# --- Run Routine "awareness_price_check" ---
-while continueRoutine:
-    # get current time
-    t = routineTimer.getTime()
-    tThisFlip = win.getFutureFlipTime(clock=routineTimer)
-    tThisFlipGlobal = win.getFutureFlipTime(clock=None)
-    frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
-    # update/draw components on each frame
-    
-    # *awareness_price* updates
-    if awareness_price.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        awareness_price.frameNStart = frameN  # exact frame index
-        awareness_price.tStart = t  # local t and not account for scr refresh
-        awareness_price.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(awareness_price, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'awareness_price.started')
-        awareness_price.setAutoDraw(True)
-    
-    # *laptop_price* updates
-    if laptop_price.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        laptop_price.frameNStart = frameN  # exact frame index
-        laptop_price.tStart = t  # local t and not account for scr refresh
-        laptop_price.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(laptop_price, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'laptop_price.started')
-        laptop_price.setAutoDraw(True)
-    
-    # *smartwatch_price* updates
-    if smartwatch_price.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartwatch_price.frameNStart = frameN  # exact frame index
-        smartwatch_price.tStart = t  # local t and not account for scr refresh
-        smartwatch_price.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartwatch_price, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartwatch_price.started')
-        smartwatch_price.setAutoDraw(True)
-    
-    # *smartband_price* updates
-    if smartband_price.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartband_price.frameNStart = frameN  # exact frame index
-        smartband_price.tStart = t  # local t and not account for scr refresh
-        smartband_price.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartband_price, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartband_price.started')
-        smartband_price.setAutoDraw(True)
-    
-    # *tablet_price* updates
-    if tablet_price.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        tablet_price.frameNStart = frameN  # exact frame index
-        tablet_price.tStart = t  # local t and not account for scr refresh
-        tablet_price.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(tablet_price, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'tablet_price.started')
-        tablet_price.setAutoDraw(True)
-    
-    # *laptop3* updates
-    if laptop3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        laptop3.frameNStart = frameN  # exact frame index
-        laptop3.tStart = t  # local t and not account for scr refresh
-        laptop3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(laptop3, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'laptop3.started')
-        laptop3.setAutoDraw(True)
-    
-    # *smartwatch3* updates
-    if smartwatch3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartwatch3.frameNStart = frameN  # exact frame index
-        smartwatch3.tStart = t  # local t and not account for scr refresh
-        smartwatch3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartwatch3, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartwatch3.started')
-        smartwatch3.setAutoDraw(True)
-    
-    # *smartband3* updates
-    if smartband3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        smartband3.frameNStart = frameN  # exact frame index
-        smartband3.tStart = t  # local t and not account for scr refresh
-        smartband3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(smartband3, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'smartband3.started')
-        smartband3.setAutoDraw(True)
-    
-    # *tablet3* updates
-    if tablet3.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-        # keep track of start time/frame for later
-        tablet3.frameNStart = frameN  # exact frame index
-        tablet3.tStart = t  # local t and not account for scr refresh
-        tablet3.tStartRefresh = tThisFlipGlobal  # on global time
-        win.timeOnFlip(tablet3, 'tStartRefresh')  # time at next scr refresh
-        # add timestamp to datafile
-        thisExp.timestampOnFlip(win, 'tablet3.started')
-        tablet3.setAutoDraw(True)
-    # Run 'Each Frame' code from code_6
-    if laptop_price.rating and smartwatch_price.rating and smartband_price.rating and tablet_price.rating:
-        continueRoutine=False
-    
-    # check for quit (typically the Esc key)
-    if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
-        core.quit()
-    
-    # check if all components have finished
-    if not continueRoutine:  # a component has requested a forced-end of Routine
-        routineForceEnded = True
-        break
-    continueRoutine = False  # will revert to True if at least one component still running
-    for thisComponent in awareness_price_checkComponents:
-        if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
-            continueRoutine = True
-            break  # at least one component has not yet finished
-    
-    # refresh the screen
-    if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
-        win.flip()
-
-# --- Ending Routine "awareness_price_check" ---
-for thisComponent in awareness_price_checkComponents:
-    if hasattr(thisComponent, "setAutoDraw"):
-        thisComponent.setAutoDraw(False)
-thisExp.addData('laptop_price.response', laptop_price.getRating())
-thisExp.addData('laptop_price.rt', laptop_price.getRT())
-thisExp.addData('smartwatch_price.response', smartwatch_price.getRating())
-thisExp.addData('smartwatch_price.rt', smartwatch_price.getRT())
-thisExp.addData('smartband_price.response', smartband_price.getRating())
-thisExp.addData('smartband_price.rt', smartband_price.getRT())
-thisExp.addData('tablet_price.response', tablet_price.getRating())
-thisExp.addData('tablet_price.rt', tablet_price.getRT())
-# the Routine "awareness_price_check" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
 # --- Prepare to start Routine "carbon_footprint" ---
