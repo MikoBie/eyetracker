@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Tue Mar 12 18:44:56 2024
+    on Wed Mar 27 11:53:02 2024
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -178,6 +178,9 @@ if expInfo['płeć'] == 'kobieta':
     inst_text = instruction_list[0].replace(';','\n\n')
 else:
     inst_text = instruction_list[1].replace(';','\n\n')
+mouse = event.Mouse(win=win)
+x, y = [None, None]
+mouse.mouseClock = core.Clock()
 
 # --- Initialize components for Routine "trust_manipulation" ---
 space2 = visual.TextStim(win=win, name='space2',
@@ -242,6 +245,9 @@ else:
         trust = trust_list[1]
         rating = rating_list[1]
     product_trust = 'untrust.png'
+mouse_2 = event.Mouse(win=win)
+x, y = [None, None]
+mouse_2.mouseClock = core.Clock()
 
 # --- Initialize components for Routine "fixation_cross" ---
 cross = visual.TextStim(win=win, name='cross',
@@ -538,7 +544,7 @@ trust_4 = visual.TextBox2(
 slider_trust2 = visual.Slider(win=win, name='slider_trust2',
     startValue=None, size=(0.7, 0.04), pos=(0, .3), units=None,
     labels=["Bardzo mało wiarygodny", "Bardzo wiarygodny"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
-    style='radio', styleTweaks=(), opacity=None,
+    style='rating', styleTweaks=(), opacity=None,
     labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
     font='Poppins', labelHeight=0.03,
     flip=False, ori=0.0, depth=-3, readOnly=False)
@@ -714,8 +720,16 @@ welcome_message.setText(inst_text)
 # Run 'Begin Routine' code from code_3
 ## Makes the cursor of the mause invisible.
 win.mouseVisible = False
+# setup some python lists for storing info about the mouse
+mouse.x = []
+mouse.y = []
+mouse.leftButton = []
+mouse.midButton = []
+mouse.rightButton = []
+mouse.time = []
+gotValidClick = False  # until a click is received
 # keep track of which components have finished
-instructionComponents = [space, space_resp, welcome_message]
+instructionComponents = [space, space_resp, welcome_message, mouse]
 for thisComponent in instructionComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -782,6 +796,33 @@ while continueRoutine:
         # add timestamp to datafile
         thisExp.timestampOnFlip(win, 'welcome_message.started')
         welcome_message.setAutoDraw(True)
+    # *mouse* updates
+    if mouse.status == NOT_STARTED and t >= 0.5-frameTolerance:
+        # keep track of start time/frame for later
+        mouse.frameNStart = frameN  # exact frame index
+        mouse.tStart = t  # local t and not account for scr refresh
+        mouse.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(mouse, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.addData('mouse.started', t)
+        mouse.status = STARTED
+        mouse.mouseClock.reset()
+        prevButtonState = mouse.getPressed()  # if button is down already this ISN'T a new click
+    if mouse.status == STARTED:  # only update if started and not finished!
+        buttons = mouse.getPressed()
+        if buttons != prevButtonState:  # button state changed?
+            prevButtonState = buttons
+            if sum(buttons) > 0:  # state changed to a new click
+                x, y = mouse.getPos()
+                mouse.x.append(x)
+                mouse.y.append(y)
+                buttons = mouse.getPressed()
+                mouse.leftButton.append(buttons[0])
+                mouse.midButton.append(buttons[1])
+                mouse.rightButton.append(buttons[2])
+                mouse.time.append(mouse.mouseClock.getTime())
+                
+                continueRoutine = False  # abort routine on response
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -805,6 +846,14 @@ while continueRoutine:
 for thisComponent in instructionComponents:
     if hasattr(thisComponent, "setAutoDraw"):
         thisComponent.setAutoDraw(False)
+# store data for thisExp (ExperimentHandler)
+thisExp.addData('mouse.x', mouse.x)
+thisExp.addData('mouse.y', mouse.y)
+thisExp.addData('mouse.leftButton', mouse.leftButton)
+thisExp.addData('mouse.midButton', mouse.midButton)
+thisExp.addData('mouse.rightButton', mouse.rightButton)
+thisExp.addData('mouse.time', mouse.time)
+thisExp.nextEntry()
 # the Routine "instruction" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
 
@@ -818,8 +867,16 @@ trust_instruction.setText(trust
 space2_resp.keys = []
 space2_resp.rt = []
 _space2_resp_allKeys = []
+# setup some python lists for storing info about the mouse_2
+mouse_2.x = []
+mouse_2.y = []
+mouse_2.leftButton = []
+mouse_2.midButton = []
+mouse_2.rightButton = []
+mouse_2.time = []
+gotValidClick = False  # until a click is received
 # keep track of which components have finished
-trust_manipulationComponents = [space2, trust_instruction, space2_resp]
+trust_manipulationComponents = [space2, trust_instruction, space2_resp, mouse_2]
 for thisComponent in trust_manipulationComponents:
     thisComponent.tStart = None
     thisComponent.tStop = None
@@ -886,6 +943,33 @@ while continueRoutine:
             space2_resp.rt = _space2_resp_allKeys[-1].rt
             # a response ends the routine
             continueRoutine = False
+    # *mouse_2* updates
+    if mouse_2.status == NOT_STARTED and t >= 0.5-frameTolerance:
+        # keep track of start time/frame for later
+        mouse_2.frameNStart = frameN  # exact frame index
+        mouse_2.tStart = t  # local t and not account for scr refresh
+        mouse_2.tStartRefresh = tThisFlipGlobal  # on global time
+        win.timeOnFlip(mouse_2, 'tStartRefresh')  # time at next scr refresh
+        # add timestamp to datafile
+        thisExp.addData('mouse_2.started', t)
+        mouse_2.status = STARTED
+        mouse_2.mouseClock.reset()
+        prevButtonState = mouse_2.getPressed()  # if button is down already this ISN'T a new click
+    if mouse_2.status == STARTED:  # only update if started and not finished!
+        buttons = mouse_2.getPressed()
+        if buttons != prevButtonState:  # button state changed?
+            prevButtonState = buttons
+            if sum(buttons) > 0:  # state changed to a new click
+                x, y = mouse_2.getPos()
+                mouse_2.x.append(x)
+                mouse_2.y.append(y)
+                buttons = mouse_2.getPressed()
+                mouse_2.leftButton.append(buttons[0])
+                mouse_2.midButton.append(buttons[1])
+                mouse_2.rightButton.append(buttons[2])
+                mouse_2.time.append(mouse_2.mouseClock.getTime())
+                
+                continueRoutine = False  # abort routine on response
     
     # check for quit (typically the Esc key)
     if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
@@ -915,6 +999,14 @@ if space2_resp.keys in ['', [], None]:  # No response was made
 thisExp.addData('space2_resp.keys',space2_resp.keys)
 if space2_resp.keys != None:  # we had a response
     thisExp.addData('space2_resp.rt', space2_resp.rt)
+thisExp.nextEntry()
+# store data for thisExp (ExperimentHandler)
+thisExp.addData('mouse_2.x', mouse_2.x)
+thisExp.addData('mouse_2.y', mouse_2.y)
+thisExp.addData('mouse_2.leftButton', mouse_2.leftButton)
+thisExp.addData('mouse_2.midButton', mouse_2.midButton)
+thisExp.addData('mouse_2.rightButton', mouse_2.rightButton)
+thisExp.addData('mouse_2.time', mouse_2.time)
 thisExp.nextEntry()
 # the Routine "trust_manipulation" was not non-slip safe, so reset the non-slip timer
 routineTimer.reset()
@@ -1061,7 +1153,7 @@ for thisTrial in trials:
     frameN = -1
     
     # --- Run Routine "products_display" ---
-    while continueRoutine and routineTimer.getTime() < 1.0:
+    while continueRoutine and routineTimer.getTime() < 15.0:
         # get current time
         t = routineTimer.getTime()
         tThisFlip = win.getFutureFlipTime(clock=routineTimer)
@@ -1081,7 +1173,7 @@ for thisTrial in trials:
             stimulus.setAutoDraw(True)
         if stimulus.status == STARTED:
             # is it time to stop? (based on global clock, using actual start)
-            if tThisFlipGlobal > stimulus.tStartRefresh + 1-frameTolerance:
+            if tThisFlipGlobal > stimulus.tStartRefresh + 15-frameTolerance:
                 # keep track of stop time/frame for later
                 stimulus.tStop = t  # not accounting for scr refresh
                 stimulus.frameNStop = frameN  # exact frame index
@@ -1126,7 +1218,7 @@ for thisTrial in trials:
     if routineForceEnded:
         routineTimer.reset()
     else:
-        routineTimer.addTime(-1.000000)
+        routineTimer.addTime(-15.000000)
     
     # --- Prepare to start Routine "ratings" ---
     continueRoutine = True
