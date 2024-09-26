@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2022.2.5),
-    on Wed Mar 27 11:53:02 2024
+    on Fri Jul 26 20:42:26 2024
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -145,7 +145,7 @@ defaultKeyboard = keyboard.Keyboard(backend='iohub')
 
 # --- Initialize components for Routine "instruction" ---
 space = visual.TextStim(win=win, name='space',
-    text='Naciśnij spację, żeby przejść dalej',
+    text='Naciśnij klawisz myszy, żeby przejść dalej',
     font='Poppins',
     pos=(0, -.4), height=0.05, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -184,7 +184,7 @@ mouse.mouseClock = core.Clock()
 
 # --- Initialize components for Routine "trust_manipulation" ---
 space2 = visual.TextStim(win=win, name='space2',
-    text='Naciśnij spację, żeby przejść dalej',
+    text='Naciśnij klawisz myszy, żeby przejść dalej',
     font='Poppins',
     pos=(0, -.4), height=0.05, wrapWidth=None, ori=0.0, 
     color='black', colorSpace='rgb', opacity=None, 
@@ -544,7 +544,7 @@ trust_4 = visual.TextBox2(
 slider_trust2 = visual.Slider(win=win, name='slider_trust2',
     startValue=None, size=(0.7, 0.04), pos=(0, .3), units=None,
     labels=["Bardzo mało wiarygodny", "Bardzo wiarygodny"], ticks=(1, 2, 3, 4, 5, 6 ,7), granularity=1.0,
-    style='rating', styleTweaks=(), opacity=None,
+    style='radio', styleTweaks=(), opacity=None,
     labelColor='black', markerColor='Black', lineColor=[0.6549, 0.6549, 0.6549], colorSpace='rgb',
     font='Poppins', labelHeight=0.03,
     flip=False, ori=0.0, depth=-3, readOnly=False)
